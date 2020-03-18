@@ -1,0 +1,17 @@
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\RobbyGeneticAlgoUnitTests.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\RobbyGeneticAlgoUnitTests.pdb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\RobbyGeneticAlgo.exe
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\RobbyGeneticAlgo.pdb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\RobbyGeneticAlgo.exe.config
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\obj\Debug\RobbyGeneticAlgoUnitTests.csprojAssemblyReference.cache
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\obj\Debug\RobbyGeneticAlgoUnitTests.csproj.CoreCompileInputs.cache
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\obj\Debug\RobbyGeneticAlgoUnitTests.csproj.CopyComplete
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\obj\Debug\RobbyGeneticAlgoUnitTests.dll
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgoUnitTests\obj\Debug\RobbyGeneticAlgoUnitTests.pdb
