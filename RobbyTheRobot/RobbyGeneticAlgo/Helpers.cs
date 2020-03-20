@@ -16,7 +16,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
-        public static readonly Random rand = new Random();
+        public static readonly Random rand = new Random(0);
 
         
         /// <summary>
@@ -28,7 +28,6 @@ namespace RobbyGeneticAlgo
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
             robby.Start();*/
-            
         }
         /*
 

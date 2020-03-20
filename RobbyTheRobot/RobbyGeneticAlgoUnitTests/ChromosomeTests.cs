@@ -10,20 +10,29 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestConstructor1Length()
         {
+
             Chromosome constructor1 = new Chromosome(5);
             Assert.AreEqual(5, constructor1.arrayLength);
         }
         [TestMethod]
         public void TestConstructor1Contents()
         {
+            
             //Test the contents of the array using an indexer. Seed the random field in Helpers.cs with value 0.
-            Chromosome constructor1 = new Chromosome(3);
-            //giving the allele the first enum number 0 which represent North
-            //The constructor is given a seed of 0 for testing purposes.
-            Allele northEnum = (Allele)0;
-            Assert.AreEqual(northEnum, constructor1[0]);
-            Assert.AreEqual(northEnum, constructor1[1]);
-            Assert.AreEqual(northEnum, constructor1[2]);
+            Chromosome constructor1 = new Chromosome(5);
+            Allele[] originalArray = constructor1.AlleleArray;
+
+            Random newRandom = new Random(0);
+            Allele[] comparingAllele = new Allele[5];
+            for (int i = 0; i < comparingAllele.Length; i++)
+            {
+                comparingAllele[i] = (Allele)newRandom.Next();
+            }
+            
+
+
+            CollectionAssert.AreEqual(originalArray, comparingAllele);
+
         }
 
         [TestMethod]

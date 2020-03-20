@@ -19,7 +19,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Creates/instantiates an array of random alleles(genes)
         /// </summary>
-        /// <param name="length"></param>
+        /// <param name="length"> The input length of a chromosome</param>
         public Chromosome(int length)
         {
             if(length <= 0)
@@ -28,6 +28,7 @@ namespace RobbyGeneticAlgo
             }
 
             this.alleleArray = new Allele[length];
+
             for(int i = 0; i<this.alleleArray.Length;i++)
             {
                 //COMMENT THIS WHEN TESTING CONSTRUCTORS
@@ -35,14 +36,14 @@ namespace RobbyGeneticAlgo
 
                 //For testing purposes
                 //UNCOMMENT THIS WHEN TESTING CONSTRUCTORS
-                this.alleleArray[i] = (Allele)Helpers.rand.Next(0);
+                this.alleleArray[i] = (Allele)Helpers.rand.Next();
             }
         }
         
         /// <summary>
         /// Constructor performs a deep copy of an input gene array of alleles.
         /// </summary>
-        /// <param name="gene"></param>
+        /// <param name="gene"> Gene is an Allele array that will be deep copied</param>
         public Chromosome(Allele[] gene)
         {
             this.alleleArray = new Allele[gene.Length];
@@ -65,7 +66,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Indexer which returns a specific Allele at alleleArray[index]
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index"> The index at which will be returned a specific allele</param>
         /// <returns>returns a specific Allele at alleleArray[index]</returns>
         public Allele this[int index]
         {
@@ -112,15 +113,15 @@ namespace RobbyGeneticAlgo
         /// <returns> An array of two result Chromosome offspring </returns>
         public Chromosome[] SingleCrossover(Chromosome a, Chromosome b)
         {
-            Chromosome[] newChildren = new Chromosome[2];
-            //finds a random point from 0 to length of enum type Allele
-            int singleCrossoverPoint = Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
-
             Allele[] parent1 = a.AlleleArray;
             Allele[] parent2 = b.AlleleArray;
 
             Allele[] child1 = new Allele[parent1.Length];
             Allele[] child2 = new Allele[parent1.Length];
+
+            Chromosome[] newChildren = new Chromosome[2];
+            //finds a random point from 0 to length of parent's allele array
+            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length);
 
             for(int i = 0; i < singleCrossoverPoint;i++)
             {
@@ -137,6 +138,16 @@ namespace RobbyGeneticAlgo
             newChildren[1] = new Chromosome(child2);
             return newChildren;
 
+        }
+        /// <summary>
+        /// Helper method to print contents of Allele[]
+        /// </summary>
+        public void print()
+        {
+            for(int i = 0; i < this.alleleArray.Length;i++)
+            {
+                Console.WriteLine(this.alleleArray[i]);
+            }
         }
 
         /*public Chromosome[] DoubleCrossover(Chromosome a, Chromosome b)
