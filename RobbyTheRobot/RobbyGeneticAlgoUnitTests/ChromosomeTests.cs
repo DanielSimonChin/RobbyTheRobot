@@ -10,26 +10,23 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestConstructor1Length()
         {
-
             Chromosome constructor1 = new Chromosome(5);
             Assert.AreEqual(5, constructor1.arrayLength);
         }
         [TestMethod]
         public void TestConstructor1Contents()
         {
-            
             //Test the contents of the array using an indexer. Seed the random field in Helpers.cs with value 0.
             Chromosome constructor1 = new Chromosome(5);
             Allele[] originalArray = constructor1.AlleleArray;
 
+            //create a seperate random instance
             Random newRandom = new Random(0);
             Allele[] comparingAllele = new Allele[5];
             for (int i = 0; i < comparingAllele.Length; i++)
             {
                 comparingAllele[i] = (Allele)newRandom.Next();
             }
-            
-
 
             CollectionAssert.AreEqual(originalArray, comparingAllele);
 
@@ -50,6 +47,72 @@ namespace RobbyGeneticAlgoUnitTests
             //give the new Chromosome the genes of the first. Should now contain identical alleles 
             Chromosome newChromosome = new Chromosome(constructor2.AlleleArray);
             CollectionAssert.AreEqual(constructor2.AlleleArray, newChromosome.AlleleArray);
+        }
+        [TestMethod]
+        public void TestSingleCrossover()
+        {
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
+            Allele[] parent1genes = parent1.AlleleArray;
+            Allele[] parent2genes = parent2.AlleleArray;
+
+            Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
+            Allele[] child1 = children[0].AlleleArray;
+            Allele[] child2 = children[1].AlleleArray;
+
+            //make sure that the length of the child allele arrays are same length as parents
+            Assert.AreEqual(20, child1.Length);
+            Assert.AreEqual(20, child2.Length);
+
+            //These next four asserts will work most of the time, the only exception would be if the random crossover point happens to be index 0 or length-1 (2/20 probability)
+            //These asserts check if the crossover worked, assuming the crossover point is not 0 or length-1
+            Assert.AreEqual(child1[0],parent1genes[0]);
+            Assert.AreEqual(child1[19], parent2genes[19]);
+
+            Assert.AreEqual(child2[0], parent2genes[0]);
+            Assert.AreEqual(child2[19], parent1genes[19]);
+        }
+
+        [TestMethod]
+        public void TestDoubleCrossover()
+        {
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
+            Allele[] parent1genes = parent1.AlleleArray;
+            Allele[] parent2genes = parent2.AlleleArray;
+
+            Chromosome[] children = Chromosome.DoubleCrossover(parent1, parent2);
+            Allele[] child1 = children[0].AlleleArray;
+            Allele[] child2 = children[1].AlleleArray;
+
+            //make sure that the length of the child allele arrays are same length as parents
+            Assert.AreEqual(20, child1.Length);
+            Assert.AreEqual(20, child2.Length);
+
+            //These next four asserts will work most of the time, the only exception would be if the random crossover point happens to be index 0 or length-1 or if both crossover points are same number (3/20 probability)
+            //These asserts check if the crossover worked, assuming the crossover point is not 0 or length-1
+            Assert.AreEqual(child1[0], parent1genes[0]);
+            Assert.AreEqual(child1[19], parent1genes[19]);
+
+            Assert.AreEqual(child2[0], parent2genes[0]);
+            Assert.AreEqual(child2[19], parent2genes[19]);
+
+        }
+
+        [TestMethod]
+        public void TestReproduceNoMutations()
+        {
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
+
+            //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
+            Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
+
+            Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
+            //since the mutation rate is greater than 1, the offspring will never mutate
+            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.05);
+
+            CollectionAssert.AreEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
         }
     }
 }

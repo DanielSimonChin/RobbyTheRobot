@@ -8,6 +8,7 @@ using RobbyGeneticAlgo;
 namespace RobbyGeneticAlgo
 {
     public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
+    public delegate double Fitness(Chromosome c);
     /// <summary>
     /// This class represents a single Chromosome, or a solution to a GA problem
     /// </summary>
@@ -32,11 +33,11 @@ namespace RobbyGeneticAlgo
             for(int i = 0; i<this.alleleArray.Length;i++)
             {
                 //COMMENT THIS WHEN TESTING CONSTRUCTORS
-                //this.alleleArray[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
+                this.alleleArray[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
 
                 //For testing purposes
                 //UNCOMMENT THIS WHEN TESTING CONSTRUCTORS
-                this.alleleArray[i] = (Allele)Helpers.rand.Next();
+                //this.alleleArray[i] = (Allele)Helpers.rand.Next();
             }
         }
         
@@ -52,16 +53,45 @@ namespace RobbyGeneticAlgo
                 this.alleleArray[i] = gene[i];
             }
         }
-
-        /*public Chromosome[] Reproduce(Chromosome spouse, Crossover f, double mutationRate)
+        /// <summary>
+        /// Creates two offspring using the Crossover delegate object and changes the Chromosome's alleles according to the mutation rate.
+        /// </summary>
+        /// <param name="spouse">The second parent that will be used to reproduce offspring</param>
+        /// <param name="f">A crossover delegate object, either SingleCrossover or Double Crossover</param>
+        /// <param name="mutationRate">The mutation rate at which the alleles can change</param>
+        /// <returns>Two offspring Chromosomes</returns>
+        public Chromosome[] Reproduce(Chromosome spouse, Crossover f, double mutationRate)
         {
+            Chromosome[] resultChildren = f(this, spouse);
+            Allele[] child1genes = resultChildren[0].AlleleArray;
+            Allele[] child2genes = resultChildren[1].AlleleArray;
+
+            double randomNumber;
+
+            /*for(int i = 0; i < child1genes.Length;i++)
+            {
+                randomNumber = Helpers.rand.NextDouble();
+                if(mutationRate < randomNumber)
+                {
+                    child1genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
+                }
+            }
+            for (int i = 0; i < child2genes.Length; i++)
+            {
+                randomNumber = Helpers.rand.NextDouble();
+                if (mutationRate < randomNumber)
+                {
+                    child2genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
+                }
+            }*/
+            return resultChildren;
 
         }
         
         public void EvalFitness(Fitness f)
         {
-
-        }*/
+            this.Fitness = f(this);
+        }
 
         /// <summary>
         /// Indexer which returns a specific Allele at alleleArray[index]
@@ -90,7 +120,18 @@ namespace RobbyGeneticAlgo
         /// <returns>Returns a number greater than 0 if the instance Chromosome's fitness is bigger than the input Chromosome's fitness</returns>
         public int CompareTo(Chromosome other)
         {
-            throw new NotImplementedException();
+            if (this.fitness > other.fitness)
+            {
+                return 1;
+            }
+            else if (this.fitness < other.fitness)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         
@@ -111,7 +152,7 @@ namespace RobbyGeneticAlgo
         /// <param name="a"> First Chromosome parent</param>
         /// <param name="b"> Second Chromosome parent</param>
         /// <returns> An array of two result Chromosome offspring </returns>
-        public Chromosome[] SingleCrossover(Chromosome a, Chromosome b)
+        public static Chromosome[] SingleCrossover(Chromosome a, Chromosome b)
         {
             Allele[] parent1 = a.AlleleArray;
             Allele[] parent2 = b.AlleleArray;
@@ -121,7 +162,8 @@ namespace RobbyGeneticAlgo
 
             Chromosome[] newChildren = new Chromosome[2];
             //finds a random point from 0 to length of parent's allele array
-            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length);
+            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
+            Console.WriteLine(singleCrossoverPoint);
 
             for(int i = 0; i < singleCrossoverPoint;i++)
             {
@@ -139,6 +181,52 @@ namespace RobbyGeneticAlgo
             return newChildren;
 
         }
+
+        public static Chromosome[] DoubleCrossover(Chromosome a, Chromosome b)
+        {
+            Allele[] parent1 = a.AlleleArray;
+            Allele[] parent2 = b.AlleleArray;
+
+            Allele[] child1 = new Allele[parent1.Length];
+            Allele[] child2 = new Allele[parent1.Length];
+            Chromosome[] newChildren = new Chromosome[2];
+
+            //finds a random point in the first half and the second point in the other half
+            int firstCrossoverPoint = Helpers.rand.Next(0, parent1.Length/2);
+            int secondCrossoverPoint = Helpers.rand.Next(parent1.Length/2, parent1.Length-1);
+            Console.WriteLine("first " + firstCrossoverPoint);
+            Console.WriteLine("second " + secondCrossoverPoint);
+
+            for(int i = 0; i < firstCrossoverPoint; i++)
+            {
+                child1[i] = parent1[i];
+                child2[i] = parent2[i];
+            }
+            for(int i = firstCrossoverPoint; i < secondCrossoverPoint; i++)
+            {
+                child1[i] = parent2[i];
+                child2[i] = parent1[i];
+            }
+            for (int i = secondCrossoverPoint; i < parent1.Length; i++)
+            {
+                child1[i] = parent1[i];
+                child2[i] = parent2[i];
+            }
+            newChildren[0] = new Chromosome(child1);
+            newChildren[1] = new Chromosome(child2);
+            return newChildren;
+        }
+
+        /// <summary>
+        /// Override of the ToString method to return the contents of the Alleles array, joined with a comma
+        /// </summary>
+        /// <returns>A new string of the contents of the Allele array seperated by comma</returns>
+        public override string ToString()
+        {
+            string contents = String.Join(",", this.alleleArray);
+            return contents;
+        }
+
         /// <summary>
         /// Helper method to print contents of Allele[]
         /// </summary>
@@ -146,13 +234,8 @@ namespace RobbyGeneticAlgo
         {
             for(int i = 0; i < this.alleleArray.Length;i++)
             {
-                Console.WriteLine(this.alleleArray[i]);
+                Console.WriteLine(i + " " +this.alleleArray[i]);
             }
-        }
-
-        /*public Chromosome[] DoubleCrossover(Chromosome a, Chromosome b)
-        {
-
-        }*/
+        } 
     }
 }
