@@ -28,41 +28,6 @@ namespace RobbyGeneticAlgo
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
             robby.Start();*/
-
-            /*Chromosome parent1 = new Chromosome(10);
-            Chromosome parent2 = new Chromosome(10);
-            Allele[] parent1genes = parent1.AlleleArray;
-            Allele[] parent2genes = parent2.AlleleArray;
-
-            Chromosome[] children = Chromosome.DoubleCrossover(parent1, parent2);
-            Allele[] child1 = children[0].AlleleArray;
-            Allele[] child2 = children[1].AlleleArray;
-
-
-            parent1.print();
-            Console.WriteLine();
-            parent2.print();
-
-            Console.WriteLine();
-
-            children[0].print();
-            Console.WriteLine();
-            children[1].print();
-            Console.ReadKey();
-            */
-            Chromosome parent1 = new Chromosome(20);
-            Chromosome parent2 = new Chromosome(20);
-
-            //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
-            Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
-
-            Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
-            //since the mutation rate is greater than 1, the offspring will never mutate
-            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.05);
-
-            children[0].print();
-            Console.WriteLine();
-            resultChildren[0].print();
             Console.ReadKey();
 
 

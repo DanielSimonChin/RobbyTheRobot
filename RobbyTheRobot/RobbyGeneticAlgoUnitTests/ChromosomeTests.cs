@@ -16,7 +16,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestConstructor1Contents()
         {
-            //Test the contents of the array using an indexer. Seed the random field in Helpers.cs with value 0.
+            //Seed the random field in Helpers.cs with value 0.
             Chromosome constructor1 = new Chromosome(5);
             Allele[] originalArray = constructor1.AlleleArray;
 
@@ -25,9 +25,9 @@ namespace RobbyGeneticAlgoUnitTests
             Allele[] comparingAllele = new Allele[5];
             for (int i = 0; i < comparingAllele.Length; i++)
             {
-                comparingAllele[i] = (Allele)newRandom.Next();
+                comparingAllele[i] = (Allele)newRandom.Next(Enum.GetNames(typeof(Allele)).Length);
             }
-
+            
             CollectionAssert.AreEqual(originalArray, comparingAllele);
 
         }
@@ -48,6 +48,7 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome newChromosome = new Chromosome(constructor2.AlleleArray);
             CollectionAssert.AreEqual(constructor2.AlleleArray, newChromosome.AlleleArray);
         }
+
         [TestMethod]
         public void TestSingleCrossover()
         {
@@ -102,6 +103,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceNoMutations()
         {
+            //seed the random object in helpers.cs with 0
             Chromosome parent1 = new Chromosome(20);
             Chromosome parent2 = new Chromosome(20);
 
@@ -110,9 +112,43 @@ namespace RobbyGeneticAlgoUnitTests
 
             Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
             //since the mutation rate is greater than 1, the offspring will never mutate
-            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.05);
+            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 2.0);
 
             CollectionAssert.AreEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
+            CollectionAssert.AreEqual(children[1].AlleleArray, resultChildren[1].AlleleArray);
         }
+
+        [TestMethod]
+        public void TestReproduceWithMutations()
+        {
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
+
+            //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
+            Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
+
+            Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
+            //Since the mutation rate is so low, the odds of the allele mutating is very high since 0.05 will almost always be less than the generated number
+            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.05);
+
+            //Checking that the children have mutations in their arrays since the mutation rate was low
+            CollectionAssert.AreNotEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
+            CollectionAssert.AreNotEqual(children[1].AlleleArray, resultChildren[1].AlleleArray);
+        }
+
+        [TestMethod]
+        public void TestAlleleIndexer()
+        {
+            //seed the random object so the program creates two identical chromosomes
+            Chromosome c1= new Chromosome(10);
+            Allele[] comparisonGenes = new Allele[c1.arrayLength];
+            for(int i = 0; i < comparisonGenes.Length;i++)
+            {
+                //call indexer
+                comparisonGenes[i] = c1[i];
+            }
+            CollectionAssert.AreEqual(c1.AlleleArray, comparisonGenes);
+        }
+    
     }
 }

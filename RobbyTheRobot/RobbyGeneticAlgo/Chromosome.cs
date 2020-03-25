@@ -32,12 +32,7 @@ namespace RobbyGeneticAlgo
 
             for(int i = 0; i<this.alleleArray.Length;i++)
             {
-                //COMMENT THIS WHEN TESTING CONSTRUCTORS
                 this.alleleArray[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
-
-                //For testing purposes
-                //UNCOMMENT THIS WHEN TESTING CONSTRUCTORS
-                //this.alleleArray[i] = (Allele)Helpers.rand.Next();
             }
         }
         
@@ -68,7 +63,7 @@ namespace RobbyGeneticAlgo
 
             double randomNumber;
 
-            /*for(int i = 0; i < child1genes.Length;i++)
+            for(int i = 0; i < child1genes.Length;i++)
             {
                 randomNumber = Helpers.rand.NextDouble();
                 if(mutationRate < randomNumber)
@@ -83,7 +78,7 @@ namespace RobbyGeneticAlgo
                 {
                     child2genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
-            }*/
+            }
             return resultChildren;
 
         }
@@ -135,12 +130,17 @@ namespace RobbyGeneticAlgo
         }
 
         
-
+        /// <summary>
+        /// Helper property for unit testing
+        /// </summary>
         public Allele[] AlleleArray
         {
             get { return this.alleleArray;}
         }
 
+        /// <summary>
+        /// Helper propert for unit testing
+        /// </summary>
         public int arrayLength
         {
             get { return this.alleleArray.Length; }
@@ -162,8 +162,15 @@ namespace RobbyGeneticAlgo
 
             Chromosome[] newChildren = new Chromosome[2];
             //finds a random point from 0 to length of parent's allele array
-            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
-            Console.WriteLine(singleCrossoverPoint);
+
+            //COMMENT THIS WHEN UNIT TESTING
+            //int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
+
+            //UNCOMMENT THIS WHEN UNIT TESTING
+            Random r = new Random(0);
+            //UNCOMMENT THIS WHEN UNIT TESTING
+            int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
+
 
             for(int i = 0; i < singleCrossoverPoint;i++)
             {
