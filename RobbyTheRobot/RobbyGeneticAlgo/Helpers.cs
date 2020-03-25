@@ -28,7 +28,9 @@ namespace RobbyGeneticAlgo
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
             robby.Start();*/
-            
+            Console.ReadKey();
+
+
         }
         /*
 

@@ -4,3 +4,4 @@ F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.csproj.CoreCompileInputs.cache
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.exe
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.pdb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.csprojAssemblyReference.cache
