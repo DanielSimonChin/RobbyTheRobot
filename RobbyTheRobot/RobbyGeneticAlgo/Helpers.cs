@@ -28,6 +28,33 @@ namespace RobbyGeneticAlgo
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
             robby.Start();*/
+
+            //seed the Helpers.rand object with 0 so that the values will always be the same sequence
+            Generation gen = new Generation(2, 5);
+
+            Random newRand = new Random(0);
+            Chromosome[] comparisonChromosomes = new Chromosome[2];
+
+            for (int i = 0; i < comparisonChromosomes.Length; i++)
+            {
+                Allele[] comparisonAlleles = new Allele[5];
+                for (int j = 0; j < comparisonAlleles.Length; j++)
+                {
+                    comparisonAlleles[j] = (Allele)newRand.Next(Enum.GetNames(typeof(Allele)).Length);
+                }
+                comparisonChromosomes[i] = new Chromosome(comparisonAlleles);
+            }
+            gen[0].print();
+            Console.WriteLine();
+            gen[1].print();
+            Console.WriteLine();
+            comparisonChromosomes[0].print();
+            Console.WriteLine();
+            comparisonChromosomes[1].print();
+
+
+
+
             Console.ReadKey();
 
 

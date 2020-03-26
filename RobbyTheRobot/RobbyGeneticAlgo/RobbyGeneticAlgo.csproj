@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Allele.cs" />
+    <Compile Include="Generation.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Chromosome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
