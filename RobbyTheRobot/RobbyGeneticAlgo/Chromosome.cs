@@ -68,6 +68,7 @@ namespace RobbyGeneticAlgo
                 randomNumber = Helpers.rand.NextDouble();
                 if(mutationRate < randomNumber)
                 {
+                    Console.WriteLine(i + " random " + randomNumber);
                     child1genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
             }
@@ -76,9 +77,12 @@ namespace RobbyGeneticAlgo
                 randomNumber = Helpers.rand.NextDouble();
                 if (mutationRate < randomNumber)
                 {
+                    Console.WriteLine(i + " random " + randomNumber);
                     child2genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
             }
+            resultChildren[0] = new Chromosome(child1genes);
+            resultChildren[1] = new Chromosome(child2genes);
             return resultChildren;
 
         }
@@ -115,11 +119,11 @@ namespace RobbyGeneticAlgo
         /// <returns>Returns a number greater than 0 if the instance Chromosome's fitness is bigger than the input Chromosome's fitness</returns>
         public int CompareTo(Chromosome other)
         {
-            if (this.fitness > other.fitness)
+            if (this.Fitness > other.Fitness)
             {
                 return 1;
             }
-            else if (this.fitness < other.fitness)
+            else if (this.Fitness < other.Fitness)
             {
                 return -1;
             }
@@ -131,11 +135,19 @@ namespace RobbyGeneticAlgo
 
         
         /// <summary>
-        /// Helper property for unit testing
+        /// Helper method that returns a deep copy of the Allele[] field.
         /// </summary>
         public Allele[] AlleleArray
         {
-            get { return this.alleleArray;}
+            get
+            {
+                Allele[] deepCopy = new Allele[this.alleleArray.Length];
+                for(int i = 0; i < deepCopy.Length;i++)
+                {
+                    deepCopy[i] = this.alleleArray[i];
+                }
+                return deepCopy;
+            }
         }
 
         /// <summary>
@@ -164,12 +176,13 @@ namespace RobbyGeneticAlgo
             //finds a random point from 0 to length of parent's allele array
 
             //COMMENT THIS WHEN UNIT TESTING
-            //int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
+            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
+            Console.Write(singleCrossoverPoint);
 
             //UNCOMMENT THIS WHEN UNIT TESTING
-            Random r = new Random(0);
+            //Random r = new Random(0);
             //UNCOMMENT THIS WHEN UNIT TESTING
-            int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
+            //int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
 
 
             for(int i = 0; i < singleCrossoverPoint;i++)

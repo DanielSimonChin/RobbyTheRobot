@@ -104,8 +104,8 @@ namespace RobbyGeneticAlgoUnitTests
         public void TestReproduceNoMutations()
         {
             //seed the random object in helpers.cs with 0
-            Chromosome parent1 = new Chromosome(20);
-            Chromosome parent2 = new Chromosome(20);
+            Chromosome parent1 = new Chromosome(10);
+            Chromosome parent2 = new Chromosome(10);
 
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
@@ -121,8 +121,8 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceWithMutations()
         {
-            Chromosome parent1 = new Chromosome(20);
-            Chromosome parent2 = new Chromosome(20);
+            Chromosome parent1 = new Chromosome(10);
+            Chromosome parent2 = new Chromosome(10);
 
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
