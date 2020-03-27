@@ -9,7 +9,7 @@ namespace RobbyGeneticAlgo
 {
     public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
     public delegate double Fitness(Chromosome c);
-    public delegate int AlleleMoveandFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
+    //public delegate int AlleleMoveandFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
     public delegate void GenerationEventHandler(int num, Generation g);
     /// <summary>
     /// This class represents a single Chromosome, or a solution to a GA problem
