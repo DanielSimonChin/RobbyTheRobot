@@ -18,6 +18,9 @@ namespace RobbyGeneticAlgo
         private double eliteRate;
         private double mutationRate;
 
+        private Generation[] generations;
+        private Contents[,] content;
+
         public RobbyRobotProblem(int numGenerations,int popSize,AlleleMoveandFitness f,int numActions,int numTestGrids,int gridSize,int numGenes,double eliteRate,double mutationRate)
         {
             this.numGenerations = numGenerations;
