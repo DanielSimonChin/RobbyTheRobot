@@ -58,13 +58,18 @@ namespace RobbyGeneticAlgo
         }
 
         /// <summary>
-        /// A readonly indexer is used to get a specific Chromosome
+        /// A readonly indexer is used to get a specific Chromosome.
         /// </summary>
         /// <param name="index">The index at which will be returned a chromosome</param>
         /// <returns>Returns a specific chromosome</returns>
         public Chromosome this[int index]
         {
-            get { return this.chromosomeArray[index]; }
+            get
+            {
+                //creates a deep copy of this chromosome at position index by retrieving a deep copy of the Allele[]
+                Chromosome deepCopy = new Chromosome(this.chromosomeArray[index].AlleleArray);
+                return deepCopy;
+            }
         }
 
         /// <summary>
