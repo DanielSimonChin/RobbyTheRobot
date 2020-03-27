@@ -48,5 +48,23 @@ namespace RobbyGeneticAlgoUnitTests
             CollectionAssert.AreEqual(gen[3].AlleleArray, comparisonChromosomes[3].AlleleArray);
             CollectionAssert.AreEqual(gen[4].AlleleArray, comparisonChromosomes[4].AlleleArray);
         }
+
+        [TestMethod]
+        public void TestIndexer()
+        {
+            Generation gen = new Generation(5, 10);
+            Chromosome[] chromArr = new Chromosome[5];
+
+            for(int i = 0; i < chromArr.Length;i++)
+            {
+                chromArr[i] = gen[i];
+            }
+
+            CollectionAssert.AreEqual(gen[0].AlleleArray, chromArr[0].AlleleArray);
+            CollectionAssert.AreEqual(gen[1].AlleleArray, chromArr[1].AlleleArray);
+            CollectionAssert.AreEqual(gen[2].AlleleArray, chromArr[2].AlleleArray);
+            CollectionAssert.AreEqual(gen[3].AlleleArray, chromArr[3].AlleleArray);
+            CollectionAssert.AreEqual(gen[4].AlleleArray, chromArr[4].AlleleArray); 
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace RobbyGeneticAlgo
 {
     public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
     public delegate double Fitness(Chromosome c);
+    public delegate int AlleleMoveandFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
+    public delegate void GenerationEventHandler(int num, Generation g);
     /// <summary>
     /// This class represents a single Chromosome, or a solution to a GA problem
     /// </summary>
@@ -87,6 +89,10 @@ namespace RobbyGeneticAlgo
 
         }
         
+        /// <summary>
+        /// Takes a fitness delegate object, invokes it on this and sets the result as the Fitness property.
+        /// </summary>
+        /// <param name="f">A Fitness delegate object</param>
         public void EvalFitness(Fitness f)
         {
             this.Fitness = f(this);
@@ -115,7 +121,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Returns an int which helps us compare two Chromosome based on their Fitness.
         /// </summary>
-        /// <param name="other"></param>
+        /// <param name="other">A second chromosome which will be compared to "this"</param>
         /// <returns>Returns a number greater than 0 if the instance Chromosome's fitness is bigger than the input Chromosome's fitness</returns>
         public int CompareTo(Chromosome other)
         {
@@ -151,7 +157,7 @@ namespace RobbyGeneticAlgo
         }
 
         /// <summary>
-        /// Helper propert for unit testing
+        /// Helper propert for unit testing which returns the length of the allele[]
         /// </summary>
         public int arrayLength
         {
@@ -177,13 +183,6 @@ namespace RobbyGeneticAlgo
 
             //COMMENT THIS WHEN UNIT TESTING
             int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
-            Console.Write(singleCrossoverPoint);
-
-            //UNCOMMENT THIS WHEN UNIT TESTING
-            //Random r = new Random(0);
-            //UNCOMMENT THIS WHEN UNIT TESTING
-            //int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
-
 
             for(int i = 0; i < singleCrossoverPoint;i++)
             {
@@ -214,8 +213,6 @@ namespace RobbyGeneticAlgo
             //finds a random point in the first half and the second point in the other half
             int firstCrossoverPoint = Helpers.rand.Next(0, parent1.Length/2);
             int secondCrossoverPoint = Helpers.rand.Next(parent1.Length/2, parent1.Length-1);
-            Console.WriteLine("first " + firstCrossoverPoint);
-            Console.WriteLine("second " + secondCrossoverPoint);
 
             for(int i = 0; i < firstCrossoverPoint; i++)
             {
