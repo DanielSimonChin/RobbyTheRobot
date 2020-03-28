@@ -16,7 +16,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
-        public static readonly Random rand = new Random(0);
+        public static readonly Random rand = new Random();
 
         
         /// <summary>
@@ -27,39 +27,10 @@ namespace RobbyGeneticAlgo
             /*RobbyRobotProblem robby = new RobbyRobotProblem(4000, 200, Helpers.ScoreForAllele);
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
-            robby.Start();*/
-
-            //seed the Helpers.rand object with 0 so that the values will always be the same sequence
-            Generation gen = new Generation(2, 5);
-
-            Random newRand = new Random(0);
-            Chromosome[] comparisonChromosomes = new Chromosome[2];
-
-            for (int i = 0; i < comparisonChromosomes.Length; i++)
-            {
-                Allele[] comparisonAlleles = new Allele[5];
-                for (int j = 0; j < comparisonAlleles.Length; j++)
-                {
-                    comparisonAlleles[j] = (Allele)newRand.Next(Enum.GetNames(typeof(Allele)).Length);
-                }
-                comparisonChromosomes[i] = new Chromosome(comparisonAlleles);
-            }
-            gen[0].print();
-            Console.WriteLine();
-            gen[1].print();
-            Console.WriteLine();
-            comparisonChromosomes[0].print();
-            Console.WriteLine();
-            comparisonChromosomes[1].print();
-
-
-
-
-            Console.ReadKey();
-
-
+            robby.Start();
+            */
         }
-        /*
+        
 
         /// <summary>
         /// TODO Add a Display method
@@ -80,7 +51,7 @@ namespace RobbyGeneticAlgo
         /// <param name="numActions">Number of moves that Robby is allowed</param>
         /// <param name="f">Fitness fuction that makes 1 move</param>
         /// <returns></returns>
-        public static int RunRobbyInGrid(Contents[,] testgrid, Chromosome c, int numActions, AlleleMoveAndFitness f)
+        public static int RunRobbyInGrid(Contents[,] testgrid, Chromosome c, int numActions, AlleleMoveandFitness f)
         {
             //starting point
             int x = Helpers.rand.Next(0, testgrid.GetLength(0));
@@ -174,7 +145,45 @@ namespace RobbyGeneticAlgo
         /// <returns>Rectangular array of Contents filled with 50% Cans, and 50% Empty </returns>
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
-            ///TODO
+            //current amount of cans in grid
+            int canCounter = 0;
+            //current amount of empty spaces in the grid
+            int emptyCounter = 0;
+            //an int representing 50% of the gridSize square
+            int half = (gridSize*gridSize)/2;
+            Contents[,] newGrid = new Contents[gridSize, gridSize];
+
+            for (int i = 0; i < newGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < newGrid.GetLength(1); j++)
+                {
+                    if (canCounter == half && emptyCounter < half)
+                    {
+                        newGrid[i, j] = Contents.Empty;
+                        emptyCounter++;
+                    }
+                    else if (emptyCounter == half && canCounter < half)
+                    {
+                        newGrid[i, j] = Contents.Can;
+                        canCounter++;
+                    }
+                    else
+                    {
+                        //give the values between 0 and 1, since 0 is empty and 1 is can.
+                        Contents newContent = (Contents)Helpers.rand.Next(2);
+                        if (newContent == Contents.Can)
+                        {
+                            canCounter++;
+                        }
+                        else
+                        {
+                            emptyCounter++;
+                        }
+                        newGrid[i, j] = newContent;
+                    }
+                }
+            }
+            return newGrid;
         }
 
         /// <summary>
@@ -238,6 +247,6 @@ namespace RobbyGeneticAlgo
             }
             while (!done);
             return 0;
-        }*/
+        }
     }
 }
