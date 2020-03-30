@@ -96,38 +96,6 @@ namespace RobbyGeneticAlgo
 
             
         }
-        
-        /// <summary>
-        /// Prints to the console the generation number and fitness of the top Chromosome (first).
-        /// </summary>
-        /// <param name="num">Generation number</param>
-        /// <param name="gen">Generation that was passed from RobbyRobotClass</param>
-        public static void Display(int num, Generation gen)
-        {
-            Console.WriteLine("Generation : " + num + "    Best Score: " + gen[0].Fitness);
-        }
-
-        /// <summary>
-        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="gen"></param>
-        public static void Print(int num, Generation gen)
-        {
-            if(num == 1)
-            {
-                string path = @".\RobbyTheRobot\RobbyGeneticAlgo\PrintResults\First.txt";
-                string[] lines = { num.ToString(), gen[0].Fitness.ToString(), gen[0].ToString() };
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    if (!File.Exists(path))
-                    {
-                        System.IO.File.WriteAllText(path, lines[i]);
-                    }
-                }
-            }
-        }
-
 
         /// <summary>
         /// Applies the fitness function to move Robby through the given testgrid for numActions moves based on the
