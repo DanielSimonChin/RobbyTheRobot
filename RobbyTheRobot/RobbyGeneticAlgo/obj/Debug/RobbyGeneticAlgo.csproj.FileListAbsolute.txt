@@ -5,3 +5,10 @@ F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.exe
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.pdb
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.csprojAssemblyReference.cache
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug\RobbyGeneticAlgo.exe.config
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug\RobbyGeneticAlgo.exe
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug\RobbyGeneticAlgo.pdb
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.csprojAssemblyReference.cache
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.csproj.CoreCompileInputs.cache
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.exe
+C:\Users\Obied\Documents\c#\teamg\RobbyTheRobot\RobbyGeneticAlgo\obj\Debug\RobbyGeneticAlgo.pdb
