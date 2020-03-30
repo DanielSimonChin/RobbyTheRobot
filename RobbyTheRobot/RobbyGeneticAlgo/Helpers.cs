@@ -24,22 +24,45 @@ namespace RobbyGeneticAlgo
         /// </summary>
         public static void Main()
         {
-            /*RobbyRobotProblem robby = new RobbyRobotProblem(4000, 200, Helpers.ScoreForAllele);
-            //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
-            // Display and the Print methods
+            RobbyRobotProblem robby = new RobbyRobotProblem(1000, 200, Helpers.ScoreForAllele);
+
+            //subscribe to the RobbyRobotProblem’s GenerationReplaced event with the Display and Print methods
+            robby.GenerationReplaced += Display;
+            //robby.GenerationReplaced += Print;
             robby.Start();
-            */
+            
         }
         
+        /// <summary>
+        /// Prints to the console the generation number and fitness of the top Chromosome (first).
+        /// </summary>
+        /// <param name="num">Generation number</param>
+        /// <param name="gen">Generation that was passed from RobbyRobotClass</param>
+        public static void Display(int num, Generation gen)
+        {
+            Console.WriteLine("Generation : " + num + "    Best Score: " + gen[0].Fitness);
+        }
 
         /// <summary>
-        /// TODO Add a Display method
+        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
         /// </summary>
-
-
-        /// <summary>
-        /// TODO Add a Print method
-        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="gen"></param>
+        public static void Print(int num, Generation gen)
+        {
+            if(num == 1)
+            {
+                string path = @".\RobbyTheRobot\RobbyGeneticAlgo\PrintResults\First.txt";
+                string[] lines = { num.ToString(), gen[0].Fitness.ToString(), gen[0].ToString() };
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (!File.Exists(path))
+                    {
+                        System.IO.File.WriteAllText(path, lines[i]);
+                    }
+                }
+            }
+        }
 
 
         /// <summary>

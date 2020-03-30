@@ -111,8 +111,8 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
 
             Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
-            //since the mutation rate is greater than 1, the offspring will never mutate
-            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 2.0);
+            //since the mutation rate is so low, the offspring will never mutate so the results will be the same as the SingleCrossover
+            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, -1.0);
 
             CollectionAssert.AreEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
             CollectionAssert.AreEqual(children[1].AlleleArray, resultChildren[1].AlleleArray);
@@ -128,8 +128,8 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
 
             Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
-            //Since the mutation rate is so low, the odds of the allele mutating is very high since 0.05 will almost always be less than the generated number
-            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.05);
+            //The mutation rate is very high so the odds of it mutating are very high as well
+            Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.95);
 
             //Checking that the children have mutations in their arrays since the mutation rate was low
             CollectionAssert.AreNotEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
@@ -149,6 +149,5 @@ namespace RobbyGeneticAlgoUnitTests
             }
             CollectionAssert.AreEqual(c1.AlleleArray, comparisonGenes);
         }
-    
     }
 }

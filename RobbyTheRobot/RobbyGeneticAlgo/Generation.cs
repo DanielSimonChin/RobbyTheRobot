@@ -37,7 +37,8 @@ namespace RobbyGeneticAlgo
             for(int i = 0; i < this.chromosomeArray.Length;i++)
             {
                 //uses the helper method in Chromosome.cs that returns the allele array
-                this.chromosomeArray[i] = new Chromosome(members[i].AlleleArray);
+                //this.chromosomeArray[i] = new Chromosome(members[i].AlleleArray);
+                this.chromosomeArray[i] = members[i];
             }
         }
 
@@ -66,9 +67,7 @@ namespace RobbyGeneticAlgo
         {
             get
             {
-                //creates a deep copy of this chromosome at position index by retrieving a deep copy of the Allele[]
-                Chromosome deepCopy = new Chromosome(this.chromosomeArray[index].AlleleArray);
-                return deepCopy;
+                return this.chromosomeArray[index];
             }
         }
 
@@ -81,11 +80,17 @@ namespace RobbyGeneticAlgo
             int[] randomIndexes = new int[10];
             for(int i = 0; i < randomIndexes.Length;i++)
             {
-                randomIndexes[i] = Helpers.rand.Next(this.chromosomeArray.Length - 1);
+                randomIndexes[i] = Helpers.rand.Next(this.chromosomeArray.Length);
             }
             Array.Sort(randomIndexes);
 
             return this.chromosomeArray[randomIndexes[0]];
         }
+
+        public int ArrayLength
+        {
+            get { return this.chromosomeArray.Length; }
+        }
+
     }
 }

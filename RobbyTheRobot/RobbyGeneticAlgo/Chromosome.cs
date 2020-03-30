@@ -68,18 +68,16 @@ namespace RobbyGeneticAlgo
             for(int i = 0; i < child1genes.Length;i++)
             {
                 randomNumber = Helpers.rand.NextDouble();
-                if(mutationRate < randomNumber)
+                if(mutationRate > randomNumber)
                 {
-                    Console.WriteLine(i + " random " + randomNumber);
                     child1genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
             }
             for (int i = 0; i < child2genes.Length; i++)
             {
                 randomNumber = Helpers.rand.NextDouble();
-                if (mutationRate < randomNumber)
+                if (mutationRate > randomNumber)
                 {
-                    Console.WriteLine(i + " random " + randomNumber);
                     child2genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
             }
@@ -243,16 +241,5 @@ namespace RobbyGeneticAlgo
             string contents = String.Join(",", this.alleleArray);
             return contents;
         }
-
-        /// <summary>
-        /// Helper method to print contents of Allele[]
-        /// </summary>
-        public void print()
-        {
-            for(int i = 0; i < this.alleleArray.Length;i++)
-            {
-                Console.WriteLine(i + " " +this.alleleArray[i]);
-            }
-        } 
     }
 }
