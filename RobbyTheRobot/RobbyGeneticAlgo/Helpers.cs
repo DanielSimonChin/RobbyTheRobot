@@ -18,57 +18,83 @@ namespace RobbyGeneticAlgo
         /// </summary>
         public static readonly Random rand = new Random(0);
 
-        
+
         /// <summary>
         /// Staring point of the Console application
         /// </summary>
         public static void Main()
         {
-            /*RobbyRobotProblem robby = new RobbyRobotProblem(4000, 200, Helpers.ScoreForAllele);
-            //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
-            // Display and the Print methods
-            robby.Start();*/
+            RobbyRobotProblem robby = new RobbyRobotProblem(1000, 200, Helpers.ScoreForAllele);
 
-            //seed the Helpers.rand object with 0 so that the values will always be the same sequence
-            Generation gen = new Generation(2, 5);
-
-            Random newRand = new Random(0);
-            Chromosome[] comparisonChromosomes = new Chromosome[2];
-
-            for (int i = 0; i < comparisonChromosomes.Length; i++)
-            {
-                Allele[] comparisonAlleles = new Allele[5];
-                for (int j = 0; j < comparisonAlleles.Length; j++)
-                {
-                    comparisonAlleles[j] = (Allele)newRand.Next(Enum.GetNames(typeof(Allele)).Length);
-                }
-                comparisonChromosomes[i] = new Chromosome(comparisonAlleles);
-            }
-            gen[0].print();
-            Console.WriteLine();
-            gen[1].print();
-            Console.WriteLine();
-            comparisonChromosomes[0].print();
-            Console.WriteLine();
-            comparisonChromosomes[1].print();
-
-
-
-
-            Console.ReadKey();
-
+            //subscribe to the RobbyRobotProblem’s GenerationReplaced event with the Display and Print methods
+            robby.GenerationReplaced += Display;
+            robby.GenerationReplaced += Print;
+            robby.Start();
 
         }
-        /*
 
         /// <summary>
-        /// TODO Add a Display method
+        /// Prints to the console the generation number and fitness of the top Chromosome (first).
         /// </summary>
-
+        /// <param name="num">Generation number</param>
+        /// <param name="gen">Generation that was passed from RobbyRobotClass</param>
+        public static void Display(int num, Generation gen)
+        {
+            Console.WriteLine("Generation : " + num + "    Best Score: " + gen[0].Fitness);
+        }
 
         /// <summary>
-        /// TODO Add a Print method
+        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
         /// </summary>
+        /// <param name="num"></param>
+        /// <param name="gen"></param>
+        public static void Print(int num, Generation gen)
+        {
+            //NB: THE FILES ARE BEING CREATED AND MODIFIED IN BIN/DEBUG/ ---> IMPORTANT TO BE ABLE TO READ FROM FILE IN MONOGAME
+
+            // if the file already exists, delete it first to recreate it later 
+            if (num == 1)
+            {
+
+                if (File.Exists("SpecificGen.txt"))
+                {
+                    File.Delete("SpecificGen.txt");
+                }
+                if (File.Exists("BestGen.txt"))
+                {
+                    File.Delete("BestGen.txt");
+                }
+            } 
+            
+            // create/append file for the specific generation asked
+            string path1 = "SpecificGen.txt";
+            if (!File.Exists(path1))
+            {
+                using (StreamWriter sw = File.CreateText(path1))
+                {}
+            }
+            // check for the specific generation 
+            if (num == 1 || num == 20 || num == 100 || num == 200 || num == 500 || num == 1000)
+            {
+                using (StreamWriter sw = File.AppendText(path1))
+                {
+                    sw.WriteLine(gen[0].Fitness);
+                }
+            }
+
+            // create/append file for best fitness of each generation 
+            string path2 = "BestGen.txt";
+            if (!File.Exists(path2))
+            {
+                using (StreamWriter sw = File.CreateText(path2))
+                { }
+            }
+            using (StreamWriter sw = File.AppendText(path2))
+            {
+                sw.WriteLine(gen[0].Fitness);
+            }
+
+        }
 
 
         /// <summary>
@@ -80,7 +106,7 @@ namespace RobbyGeneticAlgo
         /// <param name="numActions">Number of moves that Robby is allowed</param>
         /// <param name="f">Fitness fuction that makes 1 move</param>
         /// <returns></returns>
-        public static int RunRobbyInGrid(Contents[,] testgrid, Chromosome c, int numActions, AlleleMoveAndFitness f)
+        public static int RunRobbyInGrid(Contents[,] testgrid, Chromosome c, int numActions, AlleleMoveandFitness f)
         {
             //starting point
             int x = Helpers.rand.Next(0, testgrid.GetLength(0));
@@ -174,7 +200,45 @@ namespace RobbyGeneticAlgo
         /// <returns>Rectangular array of Contents filled with 50% Cans, and 50% Empty </returns>
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
-            ///TODO
+            //current amount of cans in grid
+            int canCounter = 0;
+            //current amount of empty spaces in the grid
+            int emptyCounter = 0;
+            //an int representing 50% of the gridSize square
+            int half = (gridSize * gridSize) / 2;
+            Contents[,] newGrid = new Contents[gridSize, gridSize];
+
+            for (int i = 0; i < newGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < newGrid.GetLength(1); j++)
+                {
+                    if (canCounter == half && emptyCounter < half)
+                    {
+                        newGrid[i, j] = Contents.Empty;
+                        emptyCounter++;
+                    }
+                    else if (emptyCounter == half && canCounter < half)
+                    {
+                        newGrid[i, j] = Contents.Can;
+                        canCounter++;
+                    }
+                    else
+                    {
+                        //give the values between 0 and 1, since 0 is empty and 1 is can.
+                        Contents newContent = (Contents)Helpers.rand.Next(2);
+                        if (newContent == Contents.Can)
+                        {
+                            canCounter++;
+                        }
+                        else
+                        {
+                            emptyCounter++;
+                        }
+                        newGrid[i, j] = newContent;
+                    }
+                }
+            }
+            return newGrid;
         }
 
         /// <summary>
@@ -238,6 +302,6 @@ namespace RobbyGeneticAlgo
             }
             while (!done);
             return 0;
-        }*/
+        }
     }
 }
