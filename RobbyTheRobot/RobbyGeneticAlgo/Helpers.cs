@@ -28,7 +28,7 @@ namespace RobbyGeneticAlgo
 
             //subscribe to the RobbyRobotProblem’s GenerationReplaced event with the Display and Print methods
             robby.GenerationReplaced += Display;
-            //robby.GenerationReplaced += Print;
+            robby.GenerationReplaced += Print;
             robby.Start();
 
         }
@@ -50,18 +50,50 @@ namespace RobbyGeneticAlgo
         /// <param name="gen"></param>
         public static void Print(int num, Generation gen)
         {
+            //NB: THE FILES ARE BEING CREATED AND MODIFIED IN BIN/DEBUG/ ---> IMPORTANT TO BE ABLE TO READ FROM FILE IN MONOGAME
+
+            // if the file already exists, delete it first to recreate it later 
             if (num == 1)
             {
-                string path = @".\RobbyTheRobot\RobbyGeneticAlgo\PrintResults\First.txt";
-                string[] lines = { num.ToString(), gen[0].Fitness.ToString(), gen[0].ToString() };
-                for (int i = 0; i < lines.Length; i++)
+
+                if (File.Exists("SpecificGen.txt"))
                 {
-                    if (!File.Exists(path))
-                    {
-                        System.IO.File.WriteAllText(path, lines[i]);
-                    }
+                    File.Delete("SpecificGen.txt");
+                }
+                if (File.Exists("BestGen.txt"))
+                {
+                    File.Delete("BestGen.txt");
+                }
+            } 
+            
+            // create/append file for the specific generation asked
+            string path1 = "SpecificGen.txt";
+            if (!File.Exists(path1))
+            {
+                using (StreamWriter sw = File.CreateText(path1))
+                {}
+            }
+            // check for the specific generation 
+            if (num == 1 || num == 20 || num == 100 || num == 200 || num == 500 || num == 1000)
+            {
+                using (StreamWriter sw = File.AppendText(path1))
+                {
+                    sw.WriteLine(gen[0].Fitness);
                 }
             }
+
+            // create/append file for best fitness of each generation 
+            string path2 = "BestGen.txt";
+            if (!File.Exists(path2))
+            {
+                using (StreamWriter sw = File.CreateText(path2))
+                { }
+            }
+            using (StreamWriter sw = File.AppendText(path2))
+            {
+                sw.WriteLine(gen[0].Fitness);
+            }
+
         }
 
 
