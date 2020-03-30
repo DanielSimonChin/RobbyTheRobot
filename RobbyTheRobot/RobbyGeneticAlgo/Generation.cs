@@ -21,7 +21,7 @@ namespace RobbyGeneticAlgo
         public Generation(int populationSize, int numGenes)
         {
             this.chromosomeArray = new Chromosome[populationSize];
-            for(int i = 0; i < this.chromosomeArray.Length;i++)
+            for (int i = 0; i < this.chromosomeArray.Length; i++)
             {
                 this.chromosomeArray[i] = new Chromosome(numGenes);
             }
@@ -34,7 +34,7 @@ namespace RobbyGeneticAlgo
         public Generation(Chromosome[] members)
         {
             this.chromosomeArray = new Chromosome[members.Length];
-            for(int i = 0; i < this.chromosomeArray.Length;i++)
+            for (int i = 0; i < this.chromosomeArray.Length; i++)
             {
                 //uses the helper method in Chromosome.cs that returns the allele array
                 //this.chromosomeArray[i] = new Chromosome(members[i].AlleleArray);
@@ -48,7 +48,7 @@ namespace RobbyGeneticAlgo
         /// <param name="f">A Fitness delegate object</param>
         public void EvalFitness(Fitness f)
         {
-            for(int i = 0; i < this.chromosomeArray.Length;i++)
+            for (int i = 0; i < this.chromosomeArray.Length; i++)
             {
                 this.chromosomeArray[i].EvalFitness(f);
             }
@@ -78,7 +78,7 @@ namespace RobbyGeneticAlgo
         public Chromosome SelectParent()
         {
             int[] randomIndexes = new int[10];
-            for(int i = 0; i < randomIndexes.Length;i++)
+            for (int i = 0; i < randomIndexes.Length; i++)
             {
                 randomIndexes[i] = Helpers.rand.Next(this.chromosomeArray.Length);
             }

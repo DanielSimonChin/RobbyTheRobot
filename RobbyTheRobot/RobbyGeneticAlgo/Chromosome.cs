@@ -25,19 +25,19 @@ namespace RobbyGeneticAlgo
         /// <param name="length"> The input length of a chromosome</param>
         public Chromosome(int length)
         {
-            if(length <= 0)
+            if (length <= 0)
             {
                 throw new ArgumentException("The input length must be greater than or equal to one.");
             }
 
             this.alleleArray = new Allele[length];
 
-            for(int i = 0; i<this.alleleArray.Length;i++)
+            for (int i = 0; i < this.alleleArray.Length; i++)
             {
                 this.alleleArray[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
             }
         }
-        
+
         /// <summary>
         /// Constructor performs a deep copy of an input gene array of alleles.
         /// </summary>
@@ -45,7 +45,7 @@ namespace RobbyGeneticAlgo
         public Chromosome(Allele[] gene)
         {
             this.alleleArray = new Allele[gene.Length];
-            for(int i = 0; i < alleleArray.Length;i++)
+            for (int i = 0; i < alleleArray.Length; i++)
             {
                 this.alleleArray[i] = gene[i];
             }
@@ -65,10 +65,10 @@ namespace RobbyGeneticAlgo
 
             double randomNumber;
 
-            for(int i = 0; i < child1genes.Length;i++)
+            for (int i = 0; i < child1genes.Length; i++)
             {
                 randomNumber = Helpers.rand.NextDouble();
-                if(mutationRate > randomNumber)
+                if (mutationRate > randomNumber)
                 {
                     child1genes[i] = (Allele)Helpers.rand.Next(Enum.GetNames(typeof(Allele)).Length);
                 }
@@ -86,7 +86,7 @@ namespace RobbyGeneticAlgo
             return resultChildren;
 
         }
-        
+
         /// <summary>
         /// Takes a fitness delegate object, invokes it on this and sets the result as the Fitness property.
         /// </summary>
@@ -112,7 +112,7 @@ namespace RobbyGeneticAlgo
         public double Fitness
         {
             get { return this.fitness; }
-            private set { this.fitness = value;}
+            private set { this.fitness = value; }
         }
 
 
@@ -137,7 +137,7 @@ namespace RobbyGeneticAlgo
             }
         }
 
-        
+
         /// <summary>
         /// Helper method that returns a deep copy of the Allele[] field.
         /// </summary>
@@ -146,7 +146,7 @@ namespace RobbyGeneticAlgo
             get
             {
                 Allele[] deepCopy = new Allele[this.alleleArray.Length];
-                for(int i = 0; i < deepCopy.Length;i++)
+                for (int i = 0; i < deepCopy.Length; i++)
                 {
                     deepCopy[i] = this.alleleArray[i];
                 }
@@ -180,14 +180,14 @@ namespace RobbyGeneticAlgo
             //finds a random point from 0 to length of parent's allele array
 
             //COMMENT THIS WHEN UNIT TESTING
-            int singleCrossoverPoint = Helpers.rand.Next(0,parent1.Length-1);
+            int singleCrossoverPoint = Helpers.rand.Next(0, parent1.Length - 1);
 
-            for(int i = 0; i < singleCrossoverPoint;i++)
+            for (int i = 0; i < singleCrossoverPoint; i++)
             {
                 child1[i] = parent1[i];
                 child2[i] = parent2[i];
             }
-            for(int i = singleCrossoverPoint; i < parent1.Length;i++)
+            for (int i = singleCrossoverPoint; i < parent1.Length; i++)
             {
                 child1[i] = parent2[i];
                 child2[i] = parent1[i];
@@ -209,15 +209,15 @@ namespace RobbyGeneticAlgo
             Chromosome[] newChildren = new Chromosome[2];
 
             //finds a random point in the first half and the second point in the other half
-            int firstCrossoverPoint = Helpers.rand.Next(0, parent1.Length/2);
-            int secondCrossoverPoint = Helpers.rand.Next(parent1.Length/2, parent1.Length-1);
+            int firstCrossoverPoint = Helpers.rand.Next(0, parent1.Length / 2);
+            int secondCrossoverPoint = Helpers.rand.Next(parent1.Length / 2, parent1.Length - 1);
 
-            for(int i = 0; i < firstCrossoverPoint; i++)
+            for (int i = 0; i < firstCrossoverPoint; i++)
             {
                 child1[i] = parent1[i];
                 child2[i] = parent2[i];
             }
-            for(int i = firstCrossoverPoint; i < secondCrossoverPoint; i++)
+            for (int i = firstCrossoverPoint; i < secondCrossoverPoint; i++)
             {
                 child1[i] = parent2[i];
                 child2[i] = parent1[i];

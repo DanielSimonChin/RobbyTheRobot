@@ -35,7 +35,7 @@ namespace RobbyGeneticAlgo
 
             this.contentGrids = new Contents[numTestGrids][,];
         }
-        
+
         public void Start()
         {
             Crossover f = Chromosome.SingleCrossover;
@@ -102,6 +102,52 @@ namespace RobbyGeneticAlgo
             this.currentGeneration = newGen;
         }
 
+        public void EvalFitness(Fitness f)
+        {
+            //generates a set of test grids using Helper method.
+            for (int i = 0; i < contentGrids.Length; i++)
+            {
+                this.contentGrids[i] = Helpers.GenerateRandomTestGrid(gridSize);
+            }
+            this.currentGeneration.EvalFitness(f);
+        }
+
+        public void GenerateNextGeneration(Crossover f)
+        {
+            List<Chromosome> newPopulation = new List<Chromosome>();
+
+            int elitePopulationCount = (int)(this.popSize * this.eliteRate);
+
+            //filling up the new population with the elite population from the current generation
+            for (int i = 0; i < elitePopulationCount; i++)
+            {
+                //chromosomes are already sorted by Fitness
+                newPopulation.Add(this.currentGeneration[i]);
+            }
+
+            while (newPopulation.Count < this.popSize)
+            {
+                //select 2 parents to reproduce
+                Chromosome parent1 = this.currentGeneration.SelectParent();
+                Chromosome parent2 = this.currentGeneration.SelectParent();
+
+                Chromosome[] newGenerationChromosomes = parent1.Reproduce(parent2, f, this.mutationRate);
+
+                newPopulation.Add(newGenerationChromosomes[0]);
+                newPopulation.Add(newGenerationChromosomes[1]);
+            }
+
+            //the next generation's chromosome population
+            Chromosome[] chromosomeArray = new Chromosome[this.popSize];
+            //copying the list of chromosomes into an array to use as input to the Generation constructor
+            for (int i = 0; i < chromosomeArray.Length; i++)
+            {
+                chromosomeArray[i] = newPopulation[i];
+            }
+            Generation nextGeneration = new Generation(chromosomeArray);
+            this.currentGeneration = nextGeneration;
+        }
+
         public double RobbyFitness(Chromosome c)
         {
             double totalFitness = 0;
@@ -114,7 +160,6 @@ namespace RobbyGeneticAlgo
             averageFitness = totalFitness / this.contentGrids.Length;
             return averageFitness; 
         }
-
         public event GenerationEventHandler GenerationReplaced;
     }
 }

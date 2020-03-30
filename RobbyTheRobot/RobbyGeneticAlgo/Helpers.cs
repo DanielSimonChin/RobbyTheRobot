@@ -18,7 +18,7 @@ namespace RobbyGeneticAlgo
         /// </summary>
         public static readonly Random rand = new Random();
 
-        
+
         /// <summary>
         /// Staring point of the Console application
         /// </summary>
@@ -28,8 +28,72 @@ namespace RobbyGeneticAlgo
 
             //subscribe to the RobbyRobotProblem’s GenerationReplaced event with the Display and Print methods
             robby.GenerationReplaced += Display;
-            //robby.GenerationReplaced += Print;
+            robby.GenerationReplaced += Print;
             robby.Start();
+
+        }
+
+        /// <summary>
+        /// Prints to the console the generation number and fitness of the top Chromosome (first).
+        /// </summary>
+        /// <param name="num">Generation number</param>
+        /// <param name="gen">Generation that was passed from RobbyRobotClass</param>
+        public static void Display(int num, Generation gen)
+        {
+            Console.WriteLine("Generation : " + num + "    Best Score: " + gen[0].Fitness);
+        }
+
+        /// <summary>
+        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="gen"></param>
+        public static void Print(int num, Generation gen)
+        {
+            //NB: THE FILES ARE BEING CREATED AND MODIFIED IN BIN/DEBUG/ ---> IMPORTANT TO BE ABLE TO READ FROM FILE IN MONOGAME
+
+            // if the file already exists, delete it first to recreate it later 
+            if (num == 1)
+            {
+
+                if (File.Exists("SpecificGen.txt"))
+                {
+                    File.Delete("SpecificGen.txt");
+                }
+                if (File.Exists("BestGen.txt"))
+                {
+                    File.Delete("BestGen.txt");
+                }
+            } 
+            
+            // create/append file for the specific generation asked
+            string path1 = "SpecificGen.txt";
+            if (!File.Exists(path1))
+            {
+                using (StreamWriter sw = File.CreateText(path1))
+                {}
+            }
+            // check for the specific generation 
+            if (num == 1 || num == 20 || num == 100 || num == 200 || num == 500 || num == 1000)
+            {
+                using (StreamWriter sw = File.AppendText(path1))
+                {
+                    sw.WriteLine(gen[0].Fitness);
+                }
+            }
+
+            // create/append file for best fitness of each generation 
+            string path2 = "BestGen.txt";
+            if (!File.Exists(path2))
+            {
+                using (StreamWriter sw = File.CreateText(path2))
+                { }
+            }
+            using (StreamWriter sw = File.AppendText(path2))
+            {
+                sw.WriteLine(gen[0].Fitness);
+            }
+
             
         }
         
@@ -173,7 +237,9 @@ namespace RobbyGeneticAlgo
             //current amount of empty spaces in the grid
             int emptyCounter = 0;
             //an int representing 50% of the gridSize square
-            int half = (gridSize*gridSize)/2;
+
+            int half = (gridSize * gridSize) / 2;
+
             Contents[,] newGrid = new Contents[gridSize, gridSize];
 
             for (int i = 0; i < newGrid.GetLength(0); i++)
