@@ -14,6 +14,7 @@ namespace RobbyGeneticAlgoUnitTests
             Assert.AreEqual(5, constructor1.arrayLength);
         }
         [TestMethod]
+        //THIS TEST METHOD FAILS WHEN RUNNING ALL THE TESTS COLLECTIVELY, IF FAILS, RUN THIS TEST INDIVIDUALLY (because of random instances)
         public void TestConstructor1Contents()
         {
             //Seed the random field in Helpers.cs with value 0.
@@ -27,7 +28,7 @@ namespace RobbyGeneticAlgoUnitTests
             {
                 comparingAllele[i] = (Allele)newRandom.Next(Enum.GetNames(typeof(Allele)).Length);
             }
-            
+            //allele array generated using same random seed value should be equal
             CollectionAssert.AreEqual(originalArray, comparingAllele);
 
         }
@@ -103,15 +104,16 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceNoMutations()
         {
-            //seed the random object in helpers.cs with 0
-            Chromosome parent1 = new Chromosome(10);
-            Chromosome parent2 = new Chromosome(10);
+            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
 
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
 
             Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
             //since the mutation rate is so low, the offspring will never mutate so the results will be the same as the SingleCrossover
+            //The randomly generated number will never be lower than the mutation rate, so no mutation
             Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, -1.0);
 
             CollectionAssert.AreEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
@@ -121,8 +123,9 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceWithMutations()
         {
-            Chromosome parent1 = new Chromosome(10);
-            Chromosome parent2 = new Chromosome(10);
+            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER
+            Chromosome parent1 = new Chromosome(20);
+            Chromosome parent2 = new Chromosome(20);
 
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
@@ -149,5 +152,68 @@ namespace RobbyGeneticAlgoUnitTests
             }
             CollectionAssert.AreEqual(c1.AlleleArray, comparisonGenes);
         }
+        [TestMethod]
+        public void TestEvalFitness()
+        {
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            Chromosome[] chromArr = new Chromosome[5];
+            for(int i = 0; i < chromArr.Length;i++)
+            {
+                chromArr[i] = new Chromosome(243);
+                
+            }
+            for(int i = 0; i <chromArr.Length;i++)
+            {
+                chromArr[i].EvalFitness(f);
+            }
+            //Since the EvalFitness invokes the Fitness delegate on this --> the fitness of the chromosomes are no longer default 0.0
+            Assert.AreNotEqual(0, chromArr[0].Fitness);
+            Assert.AreNotEqual(0, chromArr[1].Fitness);
+            Assert.AreNotEqual(0, chromArr[2].Fitness);
+            Assert.AreNotEqual(0, chromArr[3].Fitness);
+            Assert.AreNotEqual(0, chromArr[4].Fitness);
+        }
+
+        [TestMethod]
+        public void TestCompareTo()
+        {
+            //using the EvalFitness method to calculate the fitness of every chromosome then using Array.Sort() with the implementation of IComparable<Chromosome>
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            Chromosome[] chromArr = new Chromosome[5];
+            for (int i = 0; i < chromArr.Length; i++)
+            {
+                chromArr[i] = new Chromosome(243);
+
+            }
+            for (int i = 0; i < chromArr.Length; i++)
+            {
+                chromArr[i].EvalFitness(f);
+            }
+            //sorting the array by fitness from worst to best fitness
+            Array.Sort(chromArr);
+
+            Assert.AreEqual(true, chromArr[0].Fitness < chromArr[1].Fitness);
+            Assert.AreEqual(true, chromArr[1].Fitness < chromArr[2].Fitness);
+            Assert.AreEqual(true, chromArr[2].Fitness < chromArr[3].Fitness);
+            Assert.AreEqual(true, chromArr[3].Fitness < chromArr[4].Fitness);
+        }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            Chromosome testToString = new Chromosome(5);
+            Allele[] alleleArr = testToString.AlleleArray;
+            string[] individualAlleles = new string[alleleArr.Length];
+            for(int i = 0; i < individualAlleles.Length;i++)
+            {
+                individualAlleles[i] = alleleArr[i].ToString();
+            }
+
+            string returnValue = testToString.ToString();
+            string[] split = returnValue.Split(',');
+
+            CollectionAssert.AreEqual(individualAlleles, split);
+        }
+        
     }
 }

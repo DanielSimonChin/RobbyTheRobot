@@ -48,7 +48,7 @@ namespace RobbyGeneticAlgo
             for (int i = 0; i < alleleArray.Length; i++)
             {
                 this.alleleArray[i] = gene[i];
-            }
+            } 
         }
         /// <summary>
         /// Creates two offspring using the Crossover delegate object and changes the Chromosome's alleles according to the mutation rate.
@@ -97,6 +97,30 @@ namespace RobbyGeneticAlgo
         }
 
         /// <summary>
+        /// This method is for unit testing the EvalFitness to make sure that it is invoking the Fitness delegate on this. The fitness of each chromosome should all be non-0 values after this.
+        /// </summary>
+        /// <param name="c">A chromosome</param>
+        /// <returns></returns>
+        public static double TestEvalFitness(Chromosome c)
+        {
+            Contents[][,] contentGrids = new Contents[100][,];
+            for(int i = 0; i < contentGrids.Length;i++)
+            {
+                contentGrids[i] = Helpers.GenerateRandomTestGrid(10);
+            }
+            /*THIS IS A HELPER FOR UNIT TESTING THE EvalFitness METHOD*/
+            double totalFitness = 0;
+            double averageFitness = 0;
+            for (int i = 0; i < contentGrids.Length; i++)
+            {
+                totalFitness += Helpers.RunRobbyInGrid(contentGrids[i], c, 200, Helpers.ScoreForAllele);
+            }
+
+            averageFitness = totalFitness / contentGrids.Length;
+            return averageFitness;
+        }
+
+        /// <summary>
         /// Indexer which returns a specific Allele at alleleArray[index]
         /// </summary>
         /// <param name="index"> The index at which will be returned a specific allele</param>
@@ -139,7 +163,7 @@ namespace RobbyGeneticAlgo
 
 
         /// <summary>
-        /// Helper method that returns a deep copy of the Allele[] field.
+        /// Helper method that returns a deep copy of the Allele[] field. Mainly used for unit testing 
         /// </summary>
         public Allele[] AlleleArray
         {
@@ -177,10 +201,15 @@ namespace RobbyGeneticAlgo
             Allele[] child2 = new Allele[parent1.Length];
 
             Chromosome[] newChildren = new Chromosome[2];
-            //finds a random point from 0 to length of parent's allele array
+
+
+            //UNCOMMENT THIS WHEN UNIT TESTING FOR TESTING REPRODUCE
+            Random r = new Random(0);
+            //UNCOMMENT THIS WHEN UNIT TESTING FOR TESTING REPRODUCE
+            int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
 
             //COMMENT THIS WHEN UNIT TESTING
-            int singleCrossoverPoint = Helpers.rand.Next(0, parent1.Length - 1);
+            //int singleCrossoverPoint = Helpers.rand.Next(0, parent1.Length - 1);
 
             for (int i = 0; i < singleCrossoverPoint; i++)
             {

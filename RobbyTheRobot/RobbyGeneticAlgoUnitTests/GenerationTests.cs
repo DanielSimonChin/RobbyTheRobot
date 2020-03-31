@@ -8,6 +8,7 @@ namespace RobbyGeneticAlgoUnitTests
     public class GenerationTests
     {
         [TestMethod]
+        //THIS TEST METHOD FAILS WHEN RUNNING ALL THE TESTS COLLECTIVELY, IF FAILS, RUN THIS TEST INDIVIDUALLY (because of random instances)
         public void TestConstructor1()
         {
             //seed the Helpers.rand object with 0 so that the values will always be the same sequence
@@ -48,6 +49,27 @@ namespace RobbyGeneticAlgoUnitTests
             CollectionAssert.AreEqual(gen[3].AlleleArray, comparisonChromosomes[3].AlleleArray);
             CollectionAssert.AreEqual(gen[4].AlleleArray, comparisonChromosomes[4].AlleleArray);
         }
+        [TestMethod]
+        public void TestEvalFitness()
+        {
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            Generation gen = new Generation(5, 243);
+
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+            Assert.AreNotEqual(0, gen[0].Fitness);
+            Assert.AreNotEqual(0, gen[1].Fitness);
+            Assert.AreNotEqual(0, gen[2].Fitness);
+            Assert.AreNotEqual(0, gen[3].Fitness);
+            Assert.AreNotEqual(0, gen[4].Fitness);
+            //check for proper order(decreasing)
+            Assert.AreEqual(true, gen[0].Fitness > gen[1].Fitness);
+            Assert.AreEqual(true, gen[1].Fitness > gen[2].Fitness);
+            Assert.AreEqual(true, gen[2].Fitness > gen[3].Fitness);
+            Assert.AreEqual(true, gen[3].Fitness > gen[4].Fitness);
+
+
+        }
 
         [TestMethod]
         public void TestIndexer()
@@ -65,6 +87,32 @@ namespace RobbyGeneticAlgoUnitTests
             CollectionAssert.AreEqual(gen[2].AlleleArray, chromArr[2].AlleleArray);
             CollectionAssert.AreEqual(gen[3].AlleleArray, chromArr[3].AlleleArray);
             CollectionAssert.AreEqual(gen[4].AlleleArray, chromArr[4].AlleleArray); 
+        }
+
+        [TestMethod]
+        public void TestSelectParent()
+        {
+            //REMEMBER TO REMOVE SEED IN RANDOM INSTANCE IN SelectParent() WHEN NOT UNIT TESTING
+            Generation gen = new Generation(5,243);
+
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+
+            //using another random instance with same seed as the random instance in SelectParent()
+            Random newRandom = new Random(0);
+            int[] randomIndexes = new int[10];
+            for (int i = 0; i < randomIndexes.Length; i++)
+            {
+                randomIndexes[i] = newRandom.Next(gen.ArrayLength);
+            }
+            //smallest index at beginning of array
+            Array.Sort(randomIndexes);
+
+            Allele[] comparingResult = gen[randomIndexes[0]].AlleleArray;
+            Allele[] SelectParentResult = gen.SelectParent().AlleleArray;
+
+            CollectionAssert.AreEqual(comparingResult, SelectParentResult);
         }
     }
 }

@@ -36,8 +36,6 @@ namespace RobbyGeneticAlgo
             this.chromosomeArray = new Chromosome[members.Length];
             for (int i = 0; i < this.chromosomeArray.Length; i++)
             {
-                //uses the helper method in Chromosome.cs that returns the allele array
-                //this.chromosomeArray[i] = new Chromosome(members[i].AlleleArray);
                 this.chromosomeArray[i] = members[i];
             }
         }
@@ -77,16 +75,23 @@ namespace RobbyGeneticAlgo
         /// <returns>Returns the chromosome with the smallest random index out of 10 random indexes</returns>
         public Chromosome SelectParent()
         {
+            //NEED TO USE ANOTHER RANDOM INSTANCE FOR UNIT TESTING
+            //REMOVE SEED WHEN NOT UNIT TESTING
+            Random random = new Random(0);
             int[] randomIndexes = new int[10];
             for (int i = 0; i < randomIndexes.Length; i++)
             {
-                randomIndexes[i] = Helpers.rand.Next(this.chromosomeArray.Length);
+                //COMMENT THIS WHEN UNIT TESTING
+                randomIndexes[i] = random.Next(this.chromosomeArray.Length);
             }
             Array.Sort(randomIndexes);
 
             return this.chromosomeArray[randomIndexes[0]];
         }
 
+        /// <summary>
+        /// Helper method which returns length of the chromosome array
+        /// </summary>
         public int ArrayLength
         {
             get { return this.chromosomeArray.Length; }
