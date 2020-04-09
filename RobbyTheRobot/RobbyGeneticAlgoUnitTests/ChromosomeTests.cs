@@ -104,7 +104,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceNoMutations()
         {
-            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER
+            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER(singlecrossover has a line that must be uncommented when not unit testing)
             Chromosome parent1 = new Chromosome(20);
             Chromosome parent2 = new Chromosome(20);
 
@@ -123,7 +123,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduceWithMutations()
         {
-            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER
+            //UNCOMMENT THE SECTION FOR UNIT TESTING THE REPRODUCE METHOD IN SINGLECROSSOVER(singlecrossover has a line that must be uncommented when not unit testing)
             Chromosome parent1 = new Chromosome(20);
             Chromosome parent2 = new Chromosome(20);
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/can.png</File>
+    <File>F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/robby.png</File>
+    <File>F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/scoreFont.spritefont</File>
+    <File>F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/tile.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

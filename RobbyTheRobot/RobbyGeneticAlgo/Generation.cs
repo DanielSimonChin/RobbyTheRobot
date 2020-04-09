@@ -75,14 +75,10 @@ namespace RobbyGeneticAlgo
         /// <returns>Returns the chromosome with the smallest random index out of 10 random indexes</returns>
         public Chromosome SelectParent()
         {
-            //NEED TO USE ANOTHER RANDOM INSTANCE FOR UNIT TESTING
-            //REMOVE SEED WHEN NOT UNIT TESTING
-            Random random = new Random(0);
             int[] randomIndexes = new int[10];
             for (int i = 0; i < randomIndexes.Length; i++)
             {
-                //COMMENT THIS WHEN UNIT TESTING
-                randomIndexes[i] = random.Next(this.chromosomeArray.Length);
+                randomIndexes[i] = Helpers.rand.Next(this.chromosomeArray.Length);
             }
             Array.Sort(randomIndexes);
 

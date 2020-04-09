@@ -92,8 +92,20 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestSelectParent()
         {
+            /*Random newRand = new Random(0);
+            Chromosome[] comparisonChromosomes = new Chromosome[5];
+
+            for (int i = 0; i < comparisonChromosomes.Length; i++)
+            {
+                Allele[] comparisonAlleles = new Allele[243];
+                for (int j = 0; j < comparisonAlleles.Length; j++)
+                {
+                    comparisonAlleles[j] = (Allele)newRand.Next(Enum.GetNames(typeof(Allele)).Length);
+                }
+                comparisonChromosomes[i] = new Chromosome(comparisonAlleles);
+            }
             //REMEMBER TO REMOVE SEED IN RANDOM INSTANCE IN SelectParent() WHEN NOT UNIT TESTING
-            Generation gen = new Generation(5,243);
+            Generation gen = new Generation(comparisonChromosomes);
 
             Fitness f = new Fitness(Chromosome.TestEvalFitness);
             //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
@@ -104,7 +116,7 @@ namespace RobbyGeneticAlgoUnitTests
             int[] randomIndexes = new int[10];
             for (int i = 0; i < randomIndexes.Length; i++)
             {
-                randomIndexes[i] = newRandom.Next(gen.ArrayLength);
+                randomIndexes[i] = newRandom.Next(5);
             }
             //smallest index at beginning of array
             Array.Sort(randomIndexes);
@@ -112,7 +124,20 @@ namespace RobbyGeneticAlgoUnitTests
             Allele[] comparingResult = gen[randomIndexes[0]].AlleleArray;
             Allele[] SelectParentResult = gen.SelectParent().AlleleArray;
 
-            CollectionAssert.AreEqual(comparingResult, SelectParentResult);
+            CollectionAssert.AreEqual(comparingResult, SelectParentResult);*/
+
+            Generation gen = new Generation(5,243);
+
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+
+            Chromosome result = gen.SelectParent();
+            Assert.AreNotEqual(0, result.Fitness);
+            Assert.AreEqual(243, result.arrayLength);
+
+
+
         }
     }
 }

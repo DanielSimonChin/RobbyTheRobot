@@ -22,3 +22,11 @@ F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\obj\x86\Debu
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\obj\x86\Debug\RobbyMonogame.csproj.CopyComplete
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\obj\x86\Debug\RobbyMonogame.exe
 F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\obj\x86\Debug\RobbyMonogame.pdb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\Content\can.xnb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\Content\robby.xnb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\Content\tile.xnb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\RobbyMonogame.exe.config
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\RobbyGeneticAlgo.exe
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\RobbyGeneticAlgo.pdb
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\RobbyGeneticAlgo.exe.config
+F:\Dawson Winter 2020\C#\Project2\teamg\RobbyTheRobot\RobbyMonogame\bin\Windows\x86\Debug\Content\scoreFont.xnb

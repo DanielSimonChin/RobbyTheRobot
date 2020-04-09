@@ -16,7 +16,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
-        public static readonly Random rand = new Random(0);
+        public static readonly Random rand = new Random();
 
 
         /// <summary>
@@ -44,13 +44,38 @@ namespace RobbyGeneticAlgo
         }
 
         /// <summary>
-        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
+        /// The Print method prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
         /// </summary>
-        /// <param name="num"></param>
-        /// <param name="gen"></param>
+        /// <param name="num">Generation number</param>
+        /// <param name="gen">The generation object</param>
         public static void Print(int num, Generation gen)
         {
             //NB: THE FILES ARE BEING CREATED AND MODIFIED IN BIN/DEBUG/ ---> IMPORTANT TO BE ABLE TO READ FROM FILE IN MONOGAME
+            if (num == 1 && File.Exists("Gen_1.txt"))
+            {
+                File.Delete("Gen_1.txt");
+            }
+            else if(num == 20 && File.Exists("Gen_20.txt"))
+            {
+                File.Delete("Gen_20.txt");
+            }
+            else if (num == 100 && File.Exists("Gen_100.txt"))
+            {
+                File.Delete("Gen_100.txt");
+            }
+            else if (num == 200 && File.Exists("Gen_200.txt"))
+            {
+                File.Delete("Gen_200.txt");
+            }
+            else if (num == 500 && File.Exists("Gen_500.txt"))
+            {
+                File.Delete("Gen_500.txt");
+            }
+            else if (num == 1000 && File.Exists("Gen_1000.txt"))
+            {
+                File.Delete("Gen_1000.txt");
+            }
+
 
             if (num == 1 || num == 20 || num == 100 || num == 200 || num == 500 || num == 1000)
             {
