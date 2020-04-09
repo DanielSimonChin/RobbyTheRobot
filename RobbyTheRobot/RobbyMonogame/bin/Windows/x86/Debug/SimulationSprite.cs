@@ -15,15 +15,22 @@ using RobbyGeneticAlgo;
 
 namespace RobbyMonogame
 {
+    //THE FILES WRITTEN IN THE PRINT METHOD MUST BE WRITTEN IN ORDER FOR THE MONOGAME PORTION TO FUNCTION ie: Gen_1.txt,Gen_20.txt,Gen_100.txt,Gen_200.txt,Gen_500.txt,Gen_1000.txt
+    //THE FILES ARE LOCATED AT teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug
+    /// <summary>
+    /// This class is the visual representation of Robby's progression as he runs on a grid
+    /// </summary>
     public class SimulationSprite: DrawableGameComponent
     {
-        private double millisecondsPerFrame = 250;//Update every half second
+        //increase this number to slow down the process, lower to increase speed
+        private double millisecondsPerFrame = 50;//Update every half second
         private double timeSinceLastUpdate = 0; //Accumulate the elapsed time
 
         private SpriteFont spriteFont;
 
+        //The file names to retrive info from
         private string[] fileNames;
-
+        //The file we are currently reading from
         private int currentFileIndex = 0;
         private string fitness;
         private int moves = 0;
@@ -31,9 +38,11 @@ namespace RobbyMonogame
 
         private int score;
 
-
+        //a chromosome that takes the alleles from the file
         private Chromosome chromosome;
+        //the grid from which the chromosome is run on
         private Contents[,] grid;
+        //current position of robby
         private int x;
         private int y;
 
@@ -49,6 +58,9 @@ namespace RobbyMonogame
         {
             this.game = game;
         }
+        /// <summary>
+        /// Setup backend logic that is not visible on the screen
+        /// </summary>
         public override void Initialize()
         {
             fileNames = new string[6];
@@ -59,10 +71,17 @@ namespace RobbyMonogame
             fileNames[4] = "../../../../../RobbyGeneticAlgo/bin/Debug/Gen_500.txt";
             fileNames[5] = "../../../../../RobbyGeneticAlgo/bin/Debug/Gen_1000.txt";
 
-           
-            string[] lines = File.ReadAllLines(fileNames[5]);
-            
-            
+            setupFileInfo();
+
+            base.Initialize();
+        }
+        /// <summary>
+        /// Helper method that initializes the private fields
+        /// </summary>
+        public void setupFileInfo()
+        {
+            string[] lines = File.ReadAllLines(fileNames[currentFileIndex]);
+
             generationNumber = lines[0];
             fitness = lines[1];
             string[] alleles = lines[2].Split(',');
@@ -72,19 +91,15 @@ namespace RobbyMonogame
                 alleleArr[i] = (Allele)Enum.Parse(typeof(Allele), alleles[i]);
             }
             chromosome = new Chromosome(alleleArr);
-       
-    
-
-
-
 
             grid = Helpers.GenerateRandomTestGrid(10);
             x = Helpers.rand.Next(0, grid.GetLength(0));
             y = Helpers.rand.Next(0, grid.GetLength(1));
-
-            base.Initialize();
         }
 
+        /// <summary>
+        /// Loading the images to display on screen
+        /// </summary>
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -96,6 +111,10 @@ namespace RobbyMonogame
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Updates every event tick
+        /// </summary>
+        /// <param name="gameTime">current gameTime</param>
         public override void Update(GameTime gameTime)
         {
             //code to slow down update tick taken from stackoverflow: https://stackoverflow.com/questions/4418209/decrease-run-speed-in-xna
@@ -105,14 +124,33 @@ namespace RobbyMonogame
                 timeSinceLastUpdate = 0;
                 if (moves < 200)
                 {
+                    //perform the move and change robby's location
                     score += Helpers.ScoreForAllele(chromosome, grid, ref x, ref y);
                 }
+                else
+                {
+                    //if robby has done 200 moves, then move on to the next file
+                    moves = 0;
+                    score = 0;
+                    currentFileIndex++;
+                    //exit once all files have been visually displayed
+                    if(currentFileIndex == 6)
+                    {
+                        game.Exit();
+                    }
+                    else
+                    {
+                        setupFileInfo();
+                    }
+                }
                 moves++;
-
             }
             base.Update(gameTime);
         }
-
+        /// <summary>
+        /// Draw the grid and robby's location as well as the score, moves,generation,fitness
+        /// </summary>
+        /// <param name="gameTime">Game time</param>
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
@@ -149,8 +187,5 @@ namespace RobbyMonogame
 
             base.Draw(gameTime);
         }
-
-
     }
-
 }
