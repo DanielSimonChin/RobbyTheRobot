@@ -117,47 +117,6 @@ namespace RobbyGeneticAlgo
             Generation nextGen = new Generation(nextGenPop);
             //reference the current gen to point to new gen
             this.currentGeneration = nextGen;
-
-            /*int elitePopulationCount = (int)(this.popSize * this.eliteRate);
-            Chromosome[] elitePopulation = new Chromosome[elitePopulationCount];
-            for (int i = 0; i < elitePopulation.Length; i++)
-            {
-                //the elites are already sorted in the current gen by fitness
-                elitePopulation[i] = this.currentGeneration[i];
-            }
-            Generation newGen = new Generation(elitePopulation);
-
-            //the children that will be added by reproducing the elite
-            List<Chromosome> newChildren = new List<Chromosome>();
-
-            while (newChildren.Count < this.popSize - elitePopulation.Length)
-            {
-                //select 2 parents to reproduce using SelectParent() in generation class
-                Chromosome parent1 = newGen.SelectParent();
-                Chromosome parent2 = newGen.SelectParent();
-
-                Chromosome[] children = parent1.Reproduce(parent2, f, this.mutationRate);
-                newChildren.Add(children[0]);
-                newChildren.Add(children[1]);
-            }
-            List<Chromosome> nextGenPopList = new List<Chromosome>();
-            for (int i = 0; i < elitePopulation.Length; i++)
-            {
-                nextGenPopList.Add(elitePopulation[i]);
-            }
-            for (int i = 0; i < newChildren.Count; i++)
-            {
-                nextGenPopList.Add(newChildren[i]);
-            }
-            Chromosome[] nextGenPop = new Chromosome[nextGenPopList.Count];
-            for (int i = 0; i < nextGenPop.Length; i++)
-            {
-                nextGenPop[i] = nextGenPopList[i];
-            }
-            //creating the new generation with a new population
-            newGen = new Generation(nextGenPop);
-            //referencing the current gen to point to the newly created one.
-            this.currentGeneration = newGen;*/
         }
 
         /// <summary>

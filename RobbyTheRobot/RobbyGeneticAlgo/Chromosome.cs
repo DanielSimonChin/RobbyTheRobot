@@ -203,9 +203,9 @@ namespace RobbyGeneticAlgo
             Chromosome[] newChildren = new Chromosome[2];
 
 
-            //UNCOMMENT THIS WHEN UNIT TESTING FOR TESTING REPRODUCE
+            //THIS IS HERE FOR TESTING THE REPRODUCE METHOD
             Random r = new Random(0);
-            //UNCOMMENT THIS WHEN UNIT TESTING FOR TESTING REPRODUCE
+            //THIS IS HERE FOR TESTING THE REPRODUCE METHOD
             int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
 
             //COMMENT THIS WHEN UNIT TESTING

@@ -23,7 +23,7 @@ namespace RobbyMonogame
     public class SimulationSprite: DrawableGameComponent
     {
         //increase this number to slow down the process, lower to increase speed
-        private double millisecondsPerFrame = 50;//Update every half second
+        private double millisecondsPerFrame = 100;//Update every half second
         private double timeSinceLastUpdate = 0; //Accumulate the elapsed time
 
         private SpriteFont spriteFont;
@@ -177,7 +177,7 @@ namespace RobbyMonogame
             string scoreText = "Score : " + score;
             string movesText = "Moves : " + moves;
             string generationText = "Generation : " + generationNumber;
-            string fitnessText = "Average Fitness : " + fitness;
+            string fitnessText = "Generation's Best Fitness : " + fitness;
 
             this.spriteBatch.DrawString(this.spriteFont, generationText, new Vector2(350, 20), Color.Black);
             this.spriteBatch.DrawString(this.spriteFont, fitnessText, new Vector2(350, 40), Color.Black);
