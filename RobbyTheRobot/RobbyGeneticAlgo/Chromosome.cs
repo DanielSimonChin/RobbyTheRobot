@@ -202,14 +202,7 @@ namespace RobbyGeneticAlgo
 
             Chromosome[] newChildren = new Chromosome[2];
 
-
-            //THIS IS HERE FOR TESTING THE REPRODUCE METHOD
-            Random r = new Random(0);
-            //THIS IS HERE FOR TESTING THE REPRODUCE METHOD
-            int singleCrossoverPoint = r.Next(0, parent1.Length - 1);
-
-            //COMMENT THIS WHEN UNIT TESTING
-            //int singleCrossoverPoint = Helpers.rand.Next(0, parent1.Length - 1);
+            int singleCrossoverPoint = Helpers.rand.Next(0, parent1.Length);
 
             for (int i = 0; i < singleCrossoverPoint; i++)
             {
@@ -239,7 +232,7 @@ namespace RobbyGeneticAlgo
 
             //finds a random point in the first half and the second point in the other half
             int firstCrossoverPoint = Helpers.rand.Next(0, parent1.Length / 2);
-            int secondCrossoverPoint = Helpers.rand.Next(parent1.Length / 2, parent1.Length - 1);
+            int secondCrossoverPoint = Helpers.rand.Next(parent1.Length / 2, parent1.Length);
 
             for (int i = 0; i < firstCrossoverPoint; i++)
             {

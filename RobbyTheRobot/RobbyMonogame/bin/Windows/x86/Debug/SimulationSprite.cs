@@ -126,6 +126,7 @@ namespace RobbyMonogame
                 {
                     //perform the move and change robby's location
                     score += Helpers.ScoreForAllele(chromosome, grid, ref x, ref y);
+                    moves++;
                 }
                 else
                 {
@@ -143,7 +144,6 @@ namespace RobbyMonogame
                         setupFileInfo();
                     }
                 }
-                moves++;
             }
             base.Update(gameTime);
         }

@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RobbyGeneticAlgoUnitTests
 {
+    /*SEED HELPERS.RAND WITH 0 WHEN UNIT TESTING*/
     [TestClass]
     public class ChromosomeTests
     {
@@ -14,12 +15,16 @@ namespace RobbyGeneticAlgoUnitTests
             Assert.AreEqual(5, constructor1.arrayLength);
         }
         [TestMethod]
-        //THIS TEST METHOD FAILS WHEN RUNNING ALL THE TESTS COLLECTIVELY, IF FAILS, RUN THIS TEST INDIVIDUALLY (because of random instances)
         public void TestConstructor1Contents()
         {
+            //resetting the Helpers.rand
+            Helpers.rand = new Random(0);
+
             //Seed the random field in Helpers.cs with value 0.
             Chromosome constructor1 = new Chromosome(5);
             Allele[] originalArray = constructor1.AlleleArray;
+
+            
 
             //create a seperate random instance
             Random newRandom = new Random(0);
@@ -108,10 +113,14 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome parent1 = new Chromosome(20);
             Chromosome parent2 = new Chromosome(20);
 
+            //reset random instance
+            Helpers.rand = new Random(0);
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
             Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
 
             Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
+            Helpers.rand = new Random(0);
+
             //since the mutation rate is so low, the offspring will never mutate so the results will be the same as the SingleCrossover
             //The randomly generated number will never be lower than the mutation rate, so no mutation
             Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, -1.0);
@@ -128,13 +137,13 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome parent2 = new Chromosome(20);
 
             //Will compare these children to those created by reproduce method. Should be equal since there are no mutations
-            Chromosome[] children = Chromosome.SingleCrossover(parent1, parent2);
+            Chromosome[] children = Chromosome.DoubleCrossover(parent1, parent2);
 
-            Crossover crossoverFunction = new Crossover(Chromosome.SingleCrossover);
+            Crossover crossoverFunction = new Crossover(Chromosome.DoubleCrossover);
             //The mutation rate is very high so the odds of it mutating are very high as well
             Chromosome[] resultChildren = parent1.Reproduce(parent2, crossoverFunction, 0.95);
 
-            //Checking that the children have mutations in their arrays since the mutation rate was low
+            //Checking that the children have mutations in their arrays since the mutation rate was high
             CollectionAssert.AreNotEqual(children[0].AlleleArray, resultChildren[0].AlleleArray);
             CollectionAssert.AreNotEqual(children[1].AlleleArray, resultChildren[1].AlleleArray);
         }

@@ -4,13 +4,15 @@ using RobbyGeneticAlgo;
 
 namespace RobbyGeneticAlgoUnitTests
 {
+    /*SEED HELPERS.RAND WITH 0 WHEN UNIT TESTING*/
     [TestClass]
     public class GenerationTests
     {
         [TestMethod]
-        //THIS TEST METHOD FAILS WHEN RUNNING ALL THE TESTS COLLECTIVELY, IF FAILS, RUN THIS TEST INDIVIDUALLY (because of random instances)
         public void TestConstructor1()
         {
+            //resetting the Helpers.rand
+            Helpers.rand = new Random(0);
             //seed the Helpers.rand object with 0 so that the values will always be the same sequence
             Generation gen = new Generation(5, 10);
 
@@ -57,6 +59,7 @@ namespace RobbyGeneticAlgoUnitTests
 
             //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
             gen.EvalFitness(f);
+            //all chromosomes now have a non-zero fitness
             Assert.AreNotEqual(0, gen[0].Fitness);
             Assert.AreNotEqual(0, gen[1].Fitness);
             Assert.AreNotEqual(0, gen[2].Fitness);
