@@ -205,7 +205,6 @@ namespace RobbyGeneticAlgo
             //current amount of empty spaces in the grid
             int emptyCounter = 0;
             //an int representing 50% of the gridSize square
-
             int half = (gridSize * gridSize) / 2;
 
             Contents[,] newGrid = new Contents[gridSize, gridSize];

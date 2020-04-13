@@ -95,7 +95,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestSelectParent()
         {
-            Generation gen = new Generation(5,243);
+            Generation gen = new Generation(10,243);
 
             Fitness f = new Fitness(Chromosome.TestEvalFitness);
             //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
@@ -105,6 +105,29 @@ namespace RobbyGeneticAlgoUnitTests
             //Since the fitnesses have already been calculated, the method must return a chromosome with a non-zero fitness
             Assert.AreNotEqual(0, result.Fitness);
             Assert.AreEqual(243, result.arrayLength);
+        }
+
+        [TestMethod]
+        public void TestSelectParentResult()
+        {
+            Generation gen = new Generation(10, 243);
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+
+            //resetting the random objects so they produce the same sequence
+            Helpers.rand = new Random(0);
+            Random randInTest = new Random(0);
+            int[] randomIndexes = new int[10];
+            for (int i = 0; i < randomIndexes.Length; i++)
+            {
+                randomIndexes[i] = randInTest.Next(gen.ArrayLength);
+            }
+            Array.Sort(randomIndexes);
+
+            Chromosome resultChrom = gen.SelectParent();
+            //the chromosomes should contain identical allele arrays
+            CollectionAssert.AreEqual(gen[randomIndexes[0]].AlleleArray, resultChrom.AlleleArray);
         }
     }
 }

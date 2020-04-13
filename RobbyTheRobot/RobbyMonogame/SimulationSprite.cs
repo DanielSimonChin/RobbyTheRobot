@@ -15,6 +15,7 @@ using RobbyGeneticAlgo;
 
 namespace RobbyMonogame
 {
+    //For generations 1 and 20, Robby oftens stays in place or repeat the same moves, as generations progress, Robby learns and has a better strategy
     //THE FILES WRITTEN IN THE PRINT METHOD MUST BE WRITTEN IN ORDER FOR THE MONOGAME PORTION TO FUNCTION ie: Gen_1.txt,Gen_20.txt,Gen_100.txt,Gen_200.txt,Gen_500.txt,Gen_1000.txt
     //THE FILES ARE LOCATED AT teamg\RobbyTheRobot\RobbyGeneticAlgo\bin\Debug
     /// <summary>

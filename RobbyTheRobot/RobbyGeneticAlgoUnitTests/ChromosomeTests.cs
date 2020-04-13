@@ -24,8 +24,6 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome constructor1 = new Chromosome(5);
             Allele[] originalArray = constructor1.AlleleArray;
 
-            
-
             //create a seperate random instance
             Random newRandom = new Random(0);
             Allele[] comparingAllele = new Allele[5];

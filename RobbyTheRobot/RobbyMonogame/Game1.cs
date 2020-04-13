@@ -28,7 +28,7 @@ namespace RobbyMonogame
         /// </summary>
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferHeight = 400;
+            graphics.PreferredBackBufferHeight = 320;
             graphics.PreferredBackBufferWidth = 630;
             graphics.ApplyChanges();
 
