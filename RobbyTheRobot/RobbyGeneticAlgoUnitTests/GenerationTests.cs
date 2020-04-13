@@ -4,12 +4,15 @@ using RobbyGeneticAlgo;
 
 namespace RobbyGeneticAlgoUnitTests
 {
+    /*SEED HELPERS.RAND WITH 0 WHEN UNIT TESTING*/
     [TestClass]
     public class GenerationTests
     {
         [TestMethod]
         public void TestConstructor1()
         {
+            //resetting the Helpers.rand
+            Helpers.rand = new Random(0);
             //seed the Helpers.rand object with 0 so that the values will always be the same sequence
             Generation gen = new Generation(5, 10);
 
@@ -48,6 +51,28 @@ namespace RobbyGeneticAlgoUnitTests
             CollectionAssert.AreEqual(gen[3].AlleleArray, comparisonChromosomes[3].AlleleArray);
             CollectionAssert.AreEqual(gen[4].AlleleArray, comparisonChromosomes[4].AlleleArray);
         }
+        [TestMethod]
+        public void TestEvalFitness()
+        {
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            Generation gen = new Generation(5, 243);
+
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+            //all chromosomes now have a non-zero fitness
+            Assert.AreNotEqual(0, gen[0].Fitness);
+            Assert.AreNotEqual(0, gen[1].Fitness);
+            Assert.AreNotEqual(0, gen[2].Fitness);
+            Assert.AreNotEqual(0, gen[3].Fitness);
+            Assert.AreNotEqual(0, gen[4].Fitness);
+            //check for proper order(decreasing)
+            Assert.AreEqual(true, gen[0].Fitness > gen[1].Fitness);
+            Assert.AreEqual(true, gen[1].Fitness > gen[2].Fitness);
+            Assert.AreEqual(true, gen[2].Fitness > gen[3].Fitness);
+            Assert.AreEqual(true, gen[3].Fitness > gen[4].Fitness);
+
+
+        }
 
         [TestMethod]
         public void TestIndexer()
@@ -65,6 +90,44 @@ namespace RobbyGeneticAlgoUnitTests
             CollectionAssert.AreEqual(gen[2].AlleleArray, chromArr[2].AlleleArray);
             CollectionAssert.AreEqual(gen[3].AlleleArray, chromArr[3].AlleleArray);
             CollectionAssert.AreEqual(gen[4].AlleleArray, chromArr[4].AlleleArray); 
+        }
+
+        [TestMethod]
+        public void TestSelectParent()
+        {
+            Generation gen = new Generation(10,243);
+
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+
+            Chromosome result = gen.SelectParent();
+            //Since the fitnesses have already been calculated, the method must return a chromosome with a non-zero fitness
+            Assert.AreNotEqual(0, result.Fitness);
+            Assert.AreEqual(243, result.arrayLength);
+        }
+
+        [TestMethod]
+        public void TestSelectParentResult()
+        {
+            Generation gen = new Generation(10, 243);
+            Fitness f = new Fitness(Chromosome.TestEvalFitness);
+            //calls EvalFitness, the chromosomes now have a Fitness(non-0 value) and are sorted with best chromosome at the smallest index(decreasing order)
+            gen.EvalFitness(f);
+
+            //resetting the random objects so they produce the same sequence
+            Helpers.rand = new Random(0);
+            Random randInTest = new Random(0);
+            int[] randomIndexes = new int[10];
+            for (int i = 0; i < randomIndexes.Length; i++)
+            {
+                randomIndexes[i] = randInTest.Next(gen.ArrayLength);
+            }
+            Array.Sort(randomIndexes);
+
+            Chromosome resultChrom = gen.SelectParent();
+            //the chromosomes should contain identical allele arrays
+            CollectionAssert.AreEqual(gen[randomIndexes[0]].AlleleArray, resultChrom.AlleleArray);
         }
     }
 }

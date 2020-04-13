@@ -16,7 +16,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
-        public static readonly Random rand = new Random(0);
+        public static Random rand = new Random();
 
 
         /// <summary>
@@ -44,58 +44,58 @@ namespace RobbyGeneticAlgo
         }
 
         /// <summary>
-        /// -	The Print method (provided) prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
+        /// The Print method prints the info of the 1st, 20th, 100, 200, 500 and 1000th generation to a file.
         /// </summary>
-        /// <param name="num"></param>
-        /// <param name="gen"></param>
+        /// <param name="num">Generation number</param>
+        /// <param name="gen">The generation object</param>
         public static void Print(int num, Generation gen)
         {
             //NB: THE FILES ARE BEING CREATED AND MODIFIED IN BIN/DEBUG/ ---> IMPORTANT TO BE ABLE TO READ FROM FILE IN MONOGAME
-
-            // if the file already exists, delete it first to recreate it later 
-            if (num == 1)
+            if (num == 1 && File.Exists("Gen_1.txt"))
             {
-
-                if (File.Exists("SpecificGen.txt"))
-                {
-                    File.Delete("SpecificGen.txt");
-                }
-                if (File.Exists("BestGen.txt"))
-                {
-                    File.Delete("BestGen.txt");
-                }
-            } 
-            
-            // create/append file for the specific generation asked
-            string path1 = "SpecificGen.txt";
-            if (!File.Exists(path1))
-            {
-                using (StreamWriter sw = File.CreateText(path1))
-                {}
+                File.Delete("Gen_1.txt");
             }
-            // check for the specific generation 
+            else if(num == 20 && File.Exists("Gen_20.txt"))
+            {
+                File.Delete("Gen_20.txt");
+            }
+            else if (num == 100 && File.Exists("Gen_100.txt"))
+            {
+                File.Delete("Gen_100.txt");
+            }
+            else if (num == 200 && File.Exists("Gen_200.txt"))
+            {
+                File.Delete("Gen_200.txt");
+            }
+            else if (num == 500 && File.Exists("Gen_500.txt"))
+            {
+                File.Delete("Gen_500.txt");
+            }
+            else if (num == 1000 && File.Exists("Gen_1000.txt"))
+            {
+                File.Delete("Gen_1000.txt");
+            }
+
+
             if (num == 1 || num == 20 || num == 100 || num == 200 || num == 500 || num == 1000)
             {
-                using (StreamWriter sw = File.AppendText(path1))
+                string path = "Gen_" + num + ".txt";
+                if (!File.Exists(path))
                 {
+                    using (StreamWriter sw = File.CreateText(path))
+                    { }
+                }
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    //print the generation number
+                    sw.WriteLine(num.ToString());
+                    //print the generation's fittest chromosome
                     sw.WriteLine(gen[0].Fitness);
+                    //print the ToString of the best chromosome
+                    sw.WriteLine(gen[0].ToString());
                 }
             }
-
-            // create/append file for best fitness of each generation 
-            string path2 = "BestGen.txt";
-            if (!File.Exists(path2))
-            {
-                using (StreamWriter sw = File.CreateText(path2))
-                { }
-            }
-            using (StreamWriter sw = File.AppendText(path2))
-            {
-                sw.WriteLine(gen[0].Fitness);
-            }
-
         }
-
 
         /// <summary>
         /// Applies the fitness function to move Robby through the given testgrid for numActions moves based on the
@@ -206,6 +206,7 @@ namespace RobbyGeneticAlgo
             int emptyCounter = 0;
             //an int representing 50% of the gridSize square
             int half = (gridSize * gridSize) / 2;
+
             Contents[,] newGrid = new Contents[gridSize, gridSize];
 
             for (int i = 0; i < newGrid.GetLength(0); i++)

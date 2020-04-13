@@ -12,6 +12,8 @@ namespace RobbyMonogame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private SimulationSprite robbyGame;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -26,7 +28,12 @@ namespace RobbyMonogame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferHeight = 320;
+            graphics.PreferredBackBufferWidth = 630;
+            graphics.ApplyChanges();
+
+            robbyGame = new SimulationSprite(this);
+            Components.Add(robbyGame);
 
             base.Initialize();
         }

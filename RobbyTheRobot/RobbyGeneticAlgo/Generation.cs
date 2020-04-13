@@ -36,8 +36,7 @@ namespace RobbyGeneticAlgo
             this.chromosomeArray = new Chromosome[members.Length];
             for (int i = 0; i < this.chromosomeArray.Length; i++)
             {
-                //uses the helper method in Chromosome.cs that returns the allele array
-                this.chromosomeArray[i] = new Chromosome(members[i].AlleleArray);
+                this.chromosomeArray[i] = members[i];
             }
         }
 
@@ -85,5 +84,14 @@ namespace RobbyGeneticAlgo
 
             return this.chromosomeArray[randomIndexes[0]];
         }
+
+        /// <summary>
+        /// Helper method which returns length of the chromosome array
+        /// </summary>
+        public int ArrayLength
+        {
+            get { return this.chromosomeArray.Length; }
+        }
+
     }
 }

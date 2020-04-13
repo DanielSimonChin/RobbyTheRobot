@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/can.png","F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/bin/Windows/Content/can.xnb","TextureProcessor","Texture2DContent",378,16469,0.5111156
+"F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/robby.png","F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/bin/Windows/Content/robby.xnb","TextureProcessor","Texture2DContent",3939,16469,0.0339986
+"F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/scoreFont.spritefont","F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/bin/Windows/Content/scoreFont.xnb","FontDescriptionProcessor","SpriteFontContent",2005,21521,0.3360755
+"F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/tile.png","F:/Dawson Winter 2020/C#/Project2/teamg/RobbyTheRobot/RobbyMonogame/Content/bin/Windows/Content/tile.xnb","TextureProcessor","Texture2DContent",249,16469,0.0310849
